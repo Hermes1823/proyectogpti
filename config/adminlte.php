@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>COMERCIAL</b> ANDERSON',
+    'logo' => '<b>COMERCIAL</b> ANDERSONAXEL',
     'logo_img' => 'vendor/adminlte/dist/img/LOGOCA.jfif',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -308,7 +308,7 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'buscar',
         ],
         [
             'text' => 'blog',
@@ -322,28 +322,33 @@ return [
             'label' => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+        ['header' => 'Gestion'],
+        /*[
+            'text' => 'Lista de categorias',
+            'route' => 'categoria.index',
+            'icon' => 'fas fa-fw fa-list',
         ],
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+            'text' => 'Nueva categoria',
+            'route' => 'categoria.create',
+            'icon' => 'fas fa-fw fa-tags',
+        ],*/
         [
-            'text' => 'multilevel',
+            'text' => 'Categorias',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Lista Categorias',
+                    'route' => 'categoria.index',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Nueva Categoria',
+                    'route' => 'categoria.create',
+                ],
+
+                /*[
+                    'text' => '',
+                    'route' => '',
                     'submenu' => [
                         [
                             'text' => 'level_two',
@@ -364,10 +369,24 @@ return [
                             ],
                         ],
                     ],
-                ],
-                [
+                ],*/
+                /*[
                     'text' => 'level_one',
                     'url' => '#',
+                ],*/
+            ],
+        ],
+        [
+            'text' => 'Marcas',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Lista Marcas',
+                    'route' => 'marca.index',
+                ],
+                [
+                    'text' => 'Nueva Marca',
+                    'route' => 'marca.create',
                 ],
             ],
         ],
@@ -425,7 +444,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -470,12 +489,12 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\MarcaController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,4 +29,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::resource('/categoria',CategoriaController::class)->names('categoria');
+    Route::resource('/marca',MarcaController::class)->names('marca');
 });
