@@ -390,6 +390,20 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Productos',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Lista Productos',
+                    'route' => 'producto.index',
+                ],
+                [
+                    'text' => 'Nuevo Producto',
+                    'route' => 'producto.create',
+                ],
+            ],
+        ],
         ['header' => 'labels'],
         [
             'text' => 'important',

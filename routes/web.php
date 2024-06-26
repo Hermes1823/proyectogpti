@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
-
+use App\Http\Controllers\ProductoController;
+use App\Models\Producto;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,5 @@ Route::middleware([
 
     Route::resource('/categoria',CategoriaController::class)->names('categoria');
     Route::resource('/marca',MarcaController::class)->names('marca');
+    Route::resource('/producto',ProductoController::class)->names('producto');
 });
