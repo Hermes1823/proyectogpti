@@ -15,7 +15,9 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        $productos=Producto::all();
+
+        return view('sistema.producto.listProducto', compact('productos'));
     }
 
     /**
@@ -36,7 +38,7 @@ class ProductoController extends Controller
     {
         $validacion = $request->validate([
             'descripcion' => 'required|string|max:60',
-            'imagen' => 'nullable|file',
+            'imagen' => 'nullable',
             'id_medida' => 'required|exists:unidad_medida,id_medida',
             'id_marca' => 'required|exists:marca,id_marca',
             'precio_venta' => 'required|numeric',
@@ -45,9 +47,16 @@ class ProductoController extends Controller
             'id_categoria' => 'required|exists:categoria,id_categoria',
         ]);
 
-        $producto = new Marca();
+        $producto = new Producto();
 
         $producto->descripcion = $request->input('descripcion');
+        $producto->imagen = $request->input('imagen'); //este es un texarea 
+        $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
+        $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
+        $producto->precio_venta = $request->input('precio_venta');
+        $producto->precio_compra = $request->input('precio_compra');
+        $producto->cantidad = $request->input('cantidad');
+        $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
 
         $producto->save();
 
@@ -57,6 +66,7 @@ class ProductoController extends Controller
 
         // Redirigir a la vista categoria.create
         return redirect()->route('producto.create');
+        //return $producto;
     }
 
     /**
@@ -72,7 +82,13 @@ class ProductoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $producto=Producto::find($id);
+        $unidades = UnidadMedida::all();
+        $marcas = Marca::all();
+        $categorias = Categoria::all();
+
+        // Retornar la vista de edición con los datos del producto y las listas de opciones
+        return view('sistema.producto.editProducto', compact('producto', 'unidades', 'marcas', 'categorias'));
     }
 
     /**
@@ -80,7 +96,36 @@ class ProductoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validar los datos del formulario de edición
+        $validacion = $request->validate([
+            'descripcion' => 'required|string|max:60',
+            'imagen' => 'nullable',
+            'id_medida' => 'required|exists:unidad_medida,id_medida',
+            'id_marca' => 'required|exists:marca,id_marca',
+            'precio_venta' => 'required|numeric',
+            'precio_compra' => 'required|numeric',
+            'cantidad' => 'required|integer',
+            'id_categoria' => 'required|exists:categoria,id_categoria',
+        ]);
+
+        // Buscar el producto por su ID
+        $producto = Producto::find($id);
+
+        // Actualizar los campos del producto con los nuevos valores del formulario
+        $producto->descripcion = $request->input('descripcion');
+        $producto->imagen = $request->input('imagen');
+        $producto->id_medida = $request->input('id_medida');
+        $producto->id_marca = $request->input('id_marca');
+        $producto->precio_venta = $request->input('precio_venta');
+        $producto->precio_compra = $request->input('precio_compra');
+        $producto->cantidad = $request->input('cantidad');
+        $producto->id_categoria = $request->input('id_categoria');
+
+        // Guardar los cambios en la base de datos
+        $producto->save();
+
+        // Redireccionar a la vista de listado de productos o a donde sea necesario
+        return back()->with('message','Actualizado correctamente');
     }
 
     /**
@@ -88,6 +133,8 @@ class ProductoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $producto=Producto::find($id);
+        $producto->delete();
+        return back();
     }
 }

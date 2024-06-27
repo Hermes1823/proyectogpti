@@ -17,7 +17,7 @@
         <script>
             // Redirigir a la vista categoria.index después de 2 segundos
             setTimeout(function() {
-                window.location.href = "{{ route('marca.index') }}";
+                window.location.href = "{{ route('producto.index') }}";
             }, 2000); // 2000 milisegundos = 2 segundos
         </script>
     @endif
@@ -38,7 +38,7 @@
 
                 {{-- Categoria --}}
 
-                <x-adminlte-select2 name="categoria" label="Categoria" label-class="text-lightblue" igroup-size="lg"
+                <x-adminlte-select2 name="id_categoria" label="Categoria" label-class="text-lightblue" igroup-size="lg"
                     data-placeholder="Select an option...">
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
@@ -53,7 +53,7 @@
 
                 {{-- marca --}}
 
-                <x-adminlte-select2 name="marca" label="Marca" label-class="text-lightblue" igroup-size="lg"
+                <x-adminlte-select2 name="id_marca" label="Marca" label-class="text-lightblue" igroup-size="lg"
                     data-placeholder="Select an option...">
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
@@ -112,7 +112,7 @@
                     </x-slot>
                 </x-adminlte-input>
                 {{-- medida --}}
-                <x-adminlte-select2 name="medida" label="Unidad de Medida" label-class="text-lightblue" igroup-size="lg"
+                <x-adminlte-select2 name="id_medida" label="Unidad de Medida" label-class="text-lightblue" igroup-size="lg"
                     data-placeholder="Select an option...">
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
