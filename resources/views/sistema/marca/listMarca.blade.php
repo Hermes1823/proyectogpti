@@ -10,6 +10,12 @@
     <p>Bienvenidos a la lista de marcas</p>
 
     <div class="card">
+
+        <div class="card-body">
+            <a href="{{ route('marca.pdf') }}" class="btn btn-primary">Generar PDF</a>
+            <!-- Resto del código existente para el contenido de la tabla de promociones -->
+        </div>
+
         <div class="card-body">
             {{-- Setup data for datatables --}}
             @php

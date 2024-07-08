@@ -3,15 +3,15 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>LISTADO DE CATEGORIAS</h1>
+    <h1>LISTADO DE PROVEEDORES</h1>
 @stop
 
 @section('content')
-    <p>Bienvenidos a la lista de categorias</p>
+    <p>Bienvenidos a la lista de proveedores</p>
 
     <div class="card">
         <div class="card-body">
-            <a href="{{ route('categoria.pdf') }}" class="btn btn-primary">Generar PDF</a>
+            <a href="{{ route('proveedor.pdf') }}" class="btn btn-primary">Generar PDF</a>
             <!-- Resto del código existente para el contenido de la tabla de promociones -->
         </div>
         <div class="card-body">
@@ -19,10 +19,14 @@
             @php
                 $heads = [
                     //nombres de las columas
-                    'ID',
-                    'Descripcion',
+                    'RUC',
+                    'Razon Social',
+                    'Direccion',
+                    'Encargado',
                     ['label' => 'Actions', 'no-export' => true, 'width' => 10],
                 ];
+
+                
 
                 $btnEdit = '';
                 $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
@@ -42,16 +46,18 @@
 
             {{-- Minimal example / fill data using the component slot --}}
             <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
-                @foreach ($categorias as $categoria)
+                @foreach ($proveedores as $proveedor)
                     <tr>
-                        <td>{{ $categoria->id_categoria }}</td>
-                        <td>{{ $categoria->descripcion }}</td>
+                        <td>{{ $proveedor->ruc}}</td>
+                        <td>{{ $proveedor->razon_social}}</td>
+                        <td>{{ $proveedor->direccion}}</td>
+                        <td>{{ $proveedor->encargado}}</td>
                         <td>
-                            <a href={{route('categoria.edit', $categoria)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <a href={{route('proveedor.edit', $proveedor)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </a>
 
-                            <form style="display: inline" action="{{ route('categoria.destroy', $categoria->id_categoria) }}"
+                            <form style="display: inline" action="{{ route('proveedor.destroy', $proveedor->ruc) }}"
                                 method="post" class="formEliminar">
                                 @csrf
                                 @method('delete')

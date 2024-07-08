@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>COMERCIAL</b> ANDERSONAXEL',
+    'logo' => '<b>COMERCIAL</b> ANDERSON',
     'logo_img' => 'vendor/adminlte/dist/img/LOGOCA.jfif',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -391,6 +391,20 @@ return [
             ],
         ],
         [
+            'text' => 'Proveedores',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Lista Proveedores',
+                    'route' => 'proveedor.index',
+                ],
+                [
+                    'text' => 'Nuevo Proveedor',
+                    'route' => 'proveedor.create',
+                ],
+            ],
+        ],
+        [
             'text' => 'Productos',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
@@ -401,6 +415,20 @@ return [
                 [
                     'text' => 'Nuevo Producto',
                     'route' => 'producto.create',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Orden Compras',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Lista de Orden Compra',
+                    'route' => 'ordencompra.index',
+                ],
+                [
+                    'text' => 'Nueva Orden Compra',
+                    'route' => 'ordencompra.create',
                 ],
             ],
         ],

@@ -9,7 +9,15 @@
 @section('content')
     <p>Bienvenidos a la lista de prouctos</p>
 
+    
+
     <div class="card">
+
+        <div class="card-body">
+            <a href="{{ route('prueba.pdf') }}" class="btn btn-primary">Generar PDF</a>
+            <!-- Resto del código existente para el contenido de la tabla de promociones -->
+        </div>
+
         <div class="card-body">
             {{-- Setup data for datatables --}}
             @php
@@ -29,6 +37,7 @@
 
                 
                 $btnEdit = '';
+                $btnPDF = '';
                 $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                   <i class="fa fa-lg fa-fw fa-trash"></i>
               </button>';
@@ -71,6 +80,9 @@
                                 @method('delete')
                                 {!! $btnDelete !!}
                             </form>
+
+                            
+                            
 
                         </td>
                     </tr>
