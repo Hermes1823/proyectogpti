@@ -316,13 +316,19 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
+            'text' => 'Reportes Gráficos',
+            'route' => 'rgrafico',
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
         ],
+
+        
+
         ['header' => 'Gestion'],
+
+        
+
         /*[
             'text' => 'Lista de categorias',
             'route' => 'categoria.index',
@@ -434,9 +440,9 @@ return [
         ],
         ['header' => 'labels'],
         [
-            'text' => 'important',
+            'text' => 'importancia',
             'icon_color' => 'red',
-            'url' => '#',
+            'route' => 'rgrafico',
         ],
         [
             'text' => 'warning',
@@ -521,12 +527,12 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js',
                 ],
             ],
         ],

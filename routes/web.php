@@ -11,6 +11,7 @@ use App\Http\Controllers\PdfmarcaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductopdfController;
+use App\Http\Controllers\RgraficoController;
 use App\Models\Producto;
 
 /*
@@ -46,4 +47,6 @@ Route::middleware([
     Route::get('/marcas/pdf', [PdfmarcaController::class, 'pdf'])->name('marca.pdf');
     Route::resource('/proveedor',ProveedorController::class)->names('proveedor');
     Route::resource('/ordencompra',OrdenCompraController::class)->names('ordencompra');
+
+    Route::get('/grafico', [RgraficoController::class, 'index'])->name('rgrafico');
 });
