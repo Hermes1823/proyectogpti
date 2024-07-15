@@ -9,12 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //https://laravel-docs.com/es/docs/10.x/migrations#column-method-id
     public function up(): void
     {
         Schema::create('producto', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_producto');
             $table->string('descripcion',60);
             $table->text('imagen');
+            $table->unsignedBigInteger('id_medida');
+            $table->unsignedBigInteger('id_marca');
+            $table->unsignedBigInteger('id_categoria');
+            $table->decimal('precio_venta');
+            $table->decimal('precio_compra');
+            $table->bigInteger('cantidad');
+
+            $table->foreign('id_medida')->references('id_medida')->on('unidad_medida');
+            $table->foreign('id_marca')->references('id_marca')->on('marca');
+            $table->foreign('id_categoria')->references('id_categoria')->on('categoria');
 
         });
     }

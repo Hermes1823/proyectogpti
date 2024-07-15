@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orden_compra', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('id_orden_compra');
+            $table->date('fecha');
+            $table->string('direccion');
+            $table->decimal('sub_total');
+            $table->decimal('total');
+            $table->string('ruc',25);
+
+            $table->foreign('ruc')->references('ruc')->on('proveedor');
         });
     }
 

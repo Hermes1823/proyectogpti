@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pedido', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('id_pedido');
+            $table->date('fecha');
+            $table->string('direccion');
+            $table->string('dni');
+
+            $table->foreign('dni')->references('dni')->on('cliente');
         });
     }
 

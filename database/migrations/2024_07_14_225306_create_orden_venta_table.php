@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orden_venta', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('id_pedido');
+            $table->decimal('total');
+            $table->decimal('subtotal');
+            $table->date('fecha');
+            $table->foreign('id_pedido')->references('id_pedido')->on('pedido');
         });
     }
 
