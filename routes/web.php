@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OrdenCompraController;
@@ -37,7 +37,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
+    Route::resource('/cliente', ClienteController::class)->names('cliente');
     Route::resource('/categoria',CategoriaController::class)->names('categoria');
     Route::resource('/marca',MarcaController::class)->names('marca');
     Route::resource('/producto',ProductoController::class)->names('producto');

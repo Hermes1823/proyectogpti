@@ -11,7 +11,9 @@
 
     <div class="card">
         <div class="card-body">
-            <a href="{{ route('categoria.pdf') }}" class="btn btn-primary">Generar PDF</a>
+@can('categoria.pdf')
+<a href="{{ route('categoria.pdf') }}" class="btn btn-primary">Generar PDF</a>
+@endcan
             <!-- Resto del código existente para el contenido de la tabla de promociones -->
         </div>
         <div class="card-body">

@@ -318,10 +318,11 @@ return [
         [
             'text' => 'Reportes Gráficos',
             'route' => 'rgrafico',
+            'can' => 'rgrafico',
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
-        ],
+        ], 
 
         
 
@@ -346,10 +347,12 @@ return [
                 [
                     'text' => 'Lista Categorias',
                     'route' => 'categoria.index',
+                    'can'=>'categoria.index'
                 ],
                 [
                     'text' => 'Nueva Categoria',
                     'route' => 'categoria.create',
+                    'can'=>'categoria.create',
                 ],
 
                 /*[
@@ -389,10 +392,12 @@ return [
                 [
                     'text' => 'Lista Marcas',
                     'route' => 'marca.index',
+                    'can'=>'marca.index'
                 ],
                 [
                     'text' => 'Nueva Marca',
                     'route' => 'marca.create',
+                    'can' => 'marca.create',
                 ],
             ],
         ],
@@ -403,10 +408,12 @@ return [
                 [
                     'text' => 'Lista Proveedores',
                     'route' => 'proveedor.index',
+                    'can' => 'proveedor.index',
                 ],
                 [
                     'text' => 'Nuevo Proveedor',
                     'route' => 'proveedor.create',
+                    'can' => 'proveedor.create',
                 ],
             ],
         ],
@@ -417,10 +424,12 @@ return [
                 [
                     'text' => 'Lista Productos',
                     'route' => 'producto.index',
+                    'can' => 'producto.index',
                 ],
                 [
                     'text' => 'Nuevo Producto',
                     'route' => 'producto.create',
+                    'can' => 'producto.create',
                 ],
             ],
         ],
@@ -431,10 +440,12 @@ return [
                 [
                     'text' => 'Lista de Orden Compra',
                     'route' => 'ordencompra.index',
+                    'can' => 'ordencompra.index',
                 ],
                 [
                     'text' => 'Nueva Orden Compra',
                     'route' => 'ordencompra.create',
+                    'can' => 'ordencompra.create',
                 ],
             ],
         ],
@@ -443,6 +454,7 @@ return [
             'text' => 'importancia',
             'icon_color' => 'red',
             'route' => 'rgrafico',
+            'can' => 'rgrafico',
         ],
         [
             'text' => 'warning',

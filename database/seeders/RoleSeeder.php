@@ -18,19 +18,19 @@ class RoleSeeder extends Seeder
       $role3= Role::create(['name'=>'Compras']);
       $role4= Role::create(['name'=>'Usuario']);
         //Categoria
-      Permission::create(['name'=>'categoria.index'])->syncRoles([$role1,$role2,$role3,$role4]);
+      Permission::create(['name'=>'categoria.index'])->syncRoles([$role1,$role2,$role3]);
       Permission::create(['name'=>'categoria.create'])->syncRoles([$role1]);
       Permission::create(['name'=>'categoria.destroy'])->syncRoles([$role1]);
       Permission::create(['name'=>'categoria.edit'])->syncRoles([$role1]);
       Permission::create(['name'=>'categoria.pdf'])->syncRoles([$role1]);
         //Producto
-      Permission::create(['name'=>'producto.index'])->syncRoles([$role1,$role2,$role3,$role4]);
+      Permission::create(['name'=>'producto.index'])->syncRoles([$role1,$role2,$role3]);
       Permission::create(['name'=>'producto.create'])->syncRoles([$role1]);
       Permission::create(['name'=>'producto.destroy'])->syncRoles([$role1]);
       Permission::create(['name'=>'producto.edit'])->syncRoles([$role1]);
       Permission::create(['name'=>'producto.pdf'])->syncRoles([$role1]);
       //Marca
-      Permission::create(['name'=>'marca.index'])->syncRoles([$role1,$role2,$role3,$role4]);
+      Permission::create(['name'=>'marca.index'])->syncRoles([$role1,$role2,$role3]);
       Permission::create(['name'=>'marca.create'])->syncRoles([$role1]);
       Permission::create(['name'=>'marca.destroy'])->syncRoles([$role1]);
       Permission::create(['name'=>'marca.edit'])->syncRoles([$role1]);
