@@ -388,7 +388,8 @@ return [
         [
             'text' => 'Marcas',
             'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
+            'submenu' => 
+            [
                 [
                     'text' => 'Lista Marcas',
                     'route' => 'marca.index',
@@ -400,6 +401,24 @@ return [
                     'can' => 'marca.create',
                 ],
             ],
+        ],
+        [
+        'text'=>'Clientes',
+        'icon'=>'fas fa-fw fa-share',
+        'submenu'=>
+        [
+            [
+                'text' => 'Lista Clientes',
+                'route' => 'cliente.index',
+                'can' => 'cliente.index',
+            ],
+            [
+                'text' => 'Nuevo Cliente',
+                'route' => 'cliente.create',
+                'can' => 'cliente.create',
+            ],
+        ],
+
         ],
         [
             'text' => 'Proveedores',

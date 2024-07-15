@@ -10,6 +10,13 @@ class ProveedorController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:proveedor.index')->only('index');
+        $this->middleware('can:proveedor.create')->only('create');
+        $this->middleware('can:proveedor.edit')->only('edit');
+        $this->middleware('can:proveedor.destroy')->only('destroy');
+    }
     public function index()
     {
     

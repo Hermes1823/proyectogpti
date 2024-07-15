@@ -9,6 +9,14 @@ class ClienteController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('can:cliente.index')->only('index');
+         $this->middleware('can:cliente.create')->only('create');
+         $this->middleware('can:cliente.edit')->only('edit');
+         $this->middleware('can:cliente.destroy')->only('destroy');
+     }
     public function index()
     {
         //

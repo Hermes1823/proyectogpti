@@ -18,6 +18,13 @@ class ProductoController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:producto.index')->only('index');
+        $this->middleware('can:producto.create')->only('create');
+        $this->middleware('can:producto.edit')->only('edit');
+        $this->middleware('can:producto.destroy')->only('destroy');
+    }
     public function index()
     {
         $productos=Producto::all();

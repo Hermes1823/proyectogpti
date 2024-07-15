@@ -13,10 +13,12 @@
 
     <div class="card">
 
+        @can('prueba.pdf')
         <div class="card-body">
             <a href="{{ route('prueba.pdf') }}" class="btn btn-primary">Generar PDF</a>
             <!-- Resto del código existente para el contenido de la tabla de promociones -->
         </div>
+        @endcan
 
         <div class="card-body">
             {{-- Setup data for datatables --}}
@@ -69,17 +71,21 @@
 
                         
                         <td>
-                            
+                            @can('producto.edit')
                             <a href={{route('producto.edit', $producto)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>
-                            
+                            </a>  
+                            @endcan
+                            @can('producto.destroy')
                             <form style="display: inline" action="{{ route('producto.destroy', $producto->id_producto) }}"
                                 method="post" class="formEliminar">
                                 @csrf
                                 @method('delete')
                                 {!! $btnDelete !!}
-                            </form>
+                            </form>    
+                            @endcan
+                            
+                            
 
                             
                             

@@ -49,16 +49,20 @@
                         <td>{{ $categoria->id_categoria }}</td>
                         <td>{{ $categoria->descripcion }}</td>
                         <td>
-                            <a href={{route('categoria.edit', $categoria)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>
+                           @can('categoria.edit')
+                           <a href={{route('categoria.edit', $categoria)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                        </a>
+                           @endcan
 
+                            @can('categoria.destroy')
                             <form style="display: inline" action="{{ route('categoria.destroy', $categoria->id_categoria) }}"
                                 method="post" class="formEliminar">
                                 @csrf
                                 @method('delete')
                                 {!! $btnDelete !!}
                             </form>
+                            @endcan
 
                         </td>
                     </tr>
