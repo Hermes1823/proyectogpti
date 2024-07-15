@@ -9,6 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+       //https://laravel-docs.com/es/docs/10.x/migrations#column-method-id
     public function up(): void
     {
         Schema::create('password_reset_tokens', function (Blueprint $table) {

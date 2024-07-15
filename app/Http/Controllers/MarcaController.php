@@ -12,6 +12,7 @@ class MarcaController extends Controller
     public function index()
     {
          //
+
          $marcas=Marca::all();
          return view('sistema.marca.listMarca', compact('marcas'));
     }
@@ -53,7 +54,7 @@ class MarcaController extends Controller
      */
     public function show(string $id)
     {
-        
+
     }
 
     /**
@@ -77,7 +78,7 @@ class MarcaController extends Controller
         $marca->save();
 
         return back()->with('message','Actualizado correctamente');
-        
+
     }
 
     /**

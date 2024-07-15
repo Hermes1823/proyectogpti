@@ -9,6 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+       //https://laravel-docs.com/es/docs/10.x/migrations#column-method-id
     public function up(): void
     {
         Schema::create('cliente', function (Blueprint $table) {
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->string('apellidos');
             $table->string('numero');
             $table->boolean('estado');
-        
+
         });
     }
 
