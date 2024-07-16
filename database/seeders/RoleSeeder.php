@@ -51,6 +51,6 @@ class RoleSeeder extends Seeder
       Permission::create(['name'=>'proveedor.edit'])->syncRoles([$role1,$role3]);
         // Grafico
         Permission::create(['name'=>'rgrafico'])->syncRoles([$role1,$role2,$role3]);
-
+ 
     }
 }

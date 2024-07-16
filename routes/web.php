@@ -48,5 +48,5 @@ Route::middleware([
     Route::resource('/proveedor',ProveedorController::class)->names('proveedor');
     Route::resource('/ordencompra',OrdenCompraController::class)->names('ordencompra');
 
-    Route::get('/grafico', [RgraficoController::class, 'index'])->middleware('can:grafico')->name('rgrafico');
+    Route::get('/grafico', [RgraficoController::class, 'index'])->middleware('can:rgrafico')->name('rgrafico');
 });
