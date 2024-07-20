@@ -28,5 +28,10 @@ class OrdenCompra extends Model
         return $this->belongsTo(Proveedor::class, 'ruc');
     }
 
+    public function productos(){
+        return $this->belongsToMany(Producto::class,'detalle_orden_compra','id_orden_compra','id_producto');
+    }
+
+
 
 }

@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('proveedor', function (Blueprint $table) {
             $table->string('ruc',25)->primary(); //ruc
             $table->string('razon_social');//Razon_social
-            $table->string('encargado');
-                                //encargado
+            $table->string('encargado');//encargado
+            $table->string('direccion');
         });
     }
 

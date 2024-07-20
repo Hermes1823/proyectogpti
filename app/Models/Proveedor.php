@@ -11,4 +11,8 @@ class Proveedor extends Model
     protected $primaryKey = 'ruc';
     protected $fillable = ['ruc, razon_social, direccion, encargado'];
     public $timestamps = false;
+
+    public function ordenesCompras(){
+        return $this->hasMany(OrdenCompra::class,'ruc','ruc');
+    }
 }
