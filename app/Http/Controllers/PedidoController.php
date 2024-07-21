@@ -4,22 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class PedidoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-
-     public function __construct()
-     {
-         $this->middleware('can:cliente.index')->only('index');
-         $this->middleware('can:cliente.create')->only('create');
-         $this->middleware('can:cliente.edit')->only('edit');
-         $this->middleware('can:cliente.destroy')->only('destroy');
-     }
     public function index()
     {
-        return view('sistema.cliente.index');
+        //
     }
 
     /**
@@ -27,7 +19,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('sistema.cliente.create');
+        //
     }
 
     /**
@@ -35,7 +27,7 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
@@ -51,7 +43,7 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
-       return view('sistema.cliente.edit');
+        //
     }
 
     /**

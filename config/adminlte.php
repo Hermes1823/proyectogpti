@@ -402,24 +402,7 @@ return [
                 ],
             ],
         ],
-        [
-        'text'=>'Clientes',
-        'icon'=>'fas fa-fw fa-share',
-        'submenu'=>
-        [
-            [
-                'text' => 'Lista Clientes',
-                'route' => 'cliente.index',
-                'can' => 'cliente.index',
-            ],
-            [
-                'text' => 'Nuevo Cliente',
-                'route' => 'cliente.create',
-                'can' => 'cliente.create',
-            ],
-        ],
-
-        ],
+        
         [
             'text' => 'Proveedores',
             'icon' => 'fas fa-fw fa-share',
@@ -467,6 +450,24 @@ return [
                     'can' => 'ordencompra.create',
                 ],
             ],
+        ],
+        [
+            'text'=>'Clientes',
+            'icon'=>'fas fa-fw fa-share',
+            'submenu'=>
+            [
+                [
+                    'text' => 'Lista Clientes',
+                    'route' => 'cliente.index',
+                    'can' => 'cliente.index',
+                ],
+                [
+                    'text' => 'Nuevo Cliente',
+                    'route' => 'cliente.create',
+                    'can' => 'cliente.create',
+                ],
+            ],
+    
         ],
         ['header' => 'labels'],
         [
