@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleCompra extends Model
 {
     use HasFactory;
-    protected $table ='orden_compra';
-    protected $primaryKey='id_orden_compra';
+    protected $table ='detalle_orden_compra';
+    protected $primaryKey='id';
     protected $fillable=[
-        'fecha',
-        'direccion',
-        'sub_total',
-        'total',
-        'ruc'
+        'id_orden_compra',
+        'id_producto',
+        'cantidad',
+        'precio',
     ];
     public $timestamps = false;
 

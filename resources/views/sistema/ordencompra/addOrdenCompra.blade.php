@@ -123,18 +123,26 @@
                         <tbody id="cuerpo_tabla"></tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3">Total</td>
+                                <td colspan="3" class="text-center">Total</td>
                                 <td > 
                                   
                                     <input
-                                        type="text"
+                                        type="hidden"
                                         class="form-control"
                                         name="total"
                                         id="txtTotal"
                                         aria-describedby="helpId"
                                         placeholder=""
-                                        disabled=true
                                     />
+
+                                    <input
+                                    type="number"
+                                    class="form-control"
+                                    id="txtTotal_"
+                                    aria-describedby="helpId"
+                                    placeholder=""
+                                    disabled=true
+                                />
                                  </td>
                             </tr>
                         </tfoot>

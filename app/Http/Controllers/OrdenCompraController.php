@@ -34,12 +34,12 @@ class OrdenCompraController extends Controller
      */
     public function store(Request $request)
     {
+        //  return $request;
         $validacion = $request->validate([
-            'ruc' => 'required|string',
+            'ruc' => 'required',
             'fecha' => 'required', 
             'direccion' => 'required',
-            
-            'total' => 'required|numeric',
+            'total' => 'required',
             
         ]);
 
@@ -57,7 +57,6 @@ class OrdenCompraController extends Controller
         $cantidades=$request->cantidades;
         $precios=$request->precios;
         $productos=$request->productos;
-        $importes=$request->importes;
         $detalle= null;
         for($i=0;$i<count($cantidades);$i++){
             $detalle= new DetalleCompra();
@@ -108,6 +107,8 @@ class OrdenCompraController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $orden=OrdenCompra::find($id);
+        $orden->delete();
+        return back();
     }
 }
