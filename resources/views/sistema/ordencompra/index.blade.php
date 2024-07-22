@@ -3,33 +3,40 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>LISTADO DE CLIENTES</h1>
+    <h1>Listado Ordenes Compras</h1>
 @stop
 
 @section('content')
-    <p>Bienvenidos a la lista de clientes</p>
+    <p>Bienvenidos a la lista Ordenes Compras</p>
 
     
 
     <div class="card">
 
-       
+        @can('prueba.pdf')
+        <div class="card-body">
+            <a href="{{ route('prueba.pdf') }}" class="btn btn-primary">Generar PDF</a>
+            <!-- Resto del código existente para el contenido de la tabla de promociones -->
+        </div>
+        @endcan
 
         <div class="card-body">
             {{-- Setup data for datatables --}}
             @php
                 $heads = [
                     //nombres de las columas
-                    'DNI',
-                    'Nombre',
-                    'Apellidos',
-                    'N° celular', 
-                    'Estado',
+                    'ID',
+                    'Proveedor',
+                    'Encargado',
+                    'Fecha de emision',
+                    'Direccion',
+                    'Total',
                     ['label' => 'Actions', 'no-export' => true, 'width' => 10],
                 ];
 
                 
                 $btnEdit = '';
+                $btnPDF = '';
                 $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                   <i class="fa fa-lg fa-fw fa-trash"></i>
               </button>';
@@ -47,23 +54,24 @@
 
             {{-- Minimal example / fill data using the component slot --}}
             <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
-                @foreach ($clientes as $cliente)
+                @foreach ($ordenesCompras as $orden)
                     <tr>
-                        <td>{{ $cliente->DNI}}</td>
-                        <td>{{ $cliente->nombre}}</td>
-                        <td>{{ $cliente->apellidos}}</td>
-                        <td>{{ $cliente->numero}}</td>
-                        <td>{{ $cliente->estado}}</td>
-                       
+                        <td>{{ $orden->id_orden_compra}}</td>
+                        <td>{{ $orden->rproveedor->razon_social}}</td>
+                        <td>{{ $orden->rproveedor->encargado}}</td>
+                        <td>{{ $orden->fecha}}</td>
+                        <td>{{ $orden->direccion}}</td>
+                        <td>{{ $orden->total}}</td>
+
                         
                         <td>
-                            @can('cliente.edit')
-                            <a href={{route('cliente.edit', $cliente->DNI)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            @can('ordencompra.edit')
+                            <a href={{route('ordencompra.edit', $orden->id_orden_compra)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </a>  
                             @endcan
-                            @can('cliente.destroy')
-                            <form style="display: inline" action="{{ route('cliente.destroy', $cliente->DNI) }}"
+                            @can('ordencompra.destroy')
+                            <form style="display: inline" action="{{ route('ordencompra.destroy', $orden->id_orden_compra) }}"
                                 method="post" class="formEliminar">
                                 @csrf
                                 @method('delete')
@@ -101,7 +109,7 @@
 
                 Swal.fire({
                     title: "¿Estás seguro?",
-                    text: "¡Se va a eliminar un cliente!",
+                    text: "¡Se va a eliminar una orden de compra!",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",

@@ -10,10 +10,10 @@ class Cliente extends Model
     use HasFactory;
     protected $table='cliente';
     protected $fillable=['nombre','apellidos','numero','estado'];
-    protected $primarykey='dni';
+    protected $primaryKey='DNI';
     public $timestamps = false;
 
     function pedidos(){
-        return $this->hasMany(Pedido::class,'dni','dni');
+        return $this->hasMany(Pedido::class,'dni','DNI');
     }
 }

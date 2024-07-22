@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -19,7 +20,8 @@ class ClienteController extends Controller
      }
     public function index()
     {
-        return view('sistema.cliente.index');
+        $clientes=  Cliente::all();
+        return view('sistema.cliente.index',compact('clientes'));
     }
 
     /**
@@ -35,7 +37,23 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $validacion=$request->validate([
+            'DNI' => 'required |string | max:8',
+            'nombre'=>'required |string',
+            'apellidos'=>'required |string',
+            'numero'=>'required |numeric',
+
+        ]);
+
+        $cliente= new Cliente();
+        $cliente->DNI=$request->DNI;
+        $cliente->nombre=$request->nombre;
+        $cliente->apellidos=$request->apellidos;
+        $cliente->numero=$request->numero;
+        $cliente->estado=1;
+        $cliente->save();
+        session()->flash('message', 'registro exitoso');
+        return redirect()->route('cliente.index');
     }
 
     /**
@@ -51,7 +69,9 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
-       return view('sistema.cliente.edit');
+        $cliente= Cliente::find($id);
+
+       return view('sistema.cliente.edit',compact('cliente'));
     }
 
     /**
@@ -59,7 +79,23 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validacion=$request->validate([
+            'DNI' => 'required |string | max:8',
+            'nombre'=>'required |string',
+            'apellidos'=>'required |string',
+            'numero'=>'required |numeric',
+
+        ]);
+
+        $cliente= Cliente::find($id);
+        $cliente->DNI=$request->DNI;
+        $cliente->nombre=$request->nombre;
+        $cliente->apellidos=$request->apellidos;
+        $cliente->numero=$request->numero;
+       // $cliente->estado=1;
+        $cliente->save();
+        session()->flash('message', 'registro exitoso');
+        return redirect()->route('cliente.index');
     }
 
     /**
@@ -67,6 +103,8 @@ class ClienteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cliente= Cliente::find($id);
+        $cliente->destroy($id);
+        return redirect()->route('cliente.index');
     }
 }

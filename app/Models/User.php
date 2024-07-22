@@ -63,4 +63,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function adminlte_image(){
+        return 'https://picsum.photos/300/300';
+    }
+
+    public function adminlte_desc(){
+        
+    }
+
+    public function adminlte_profile_url(){
+        
+    }
 }

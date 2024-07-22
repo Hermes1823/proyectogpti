@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriaSeeder::class);
         $this->call(UnidadMedidaSeeder::class);
         $this->call(MarcaSeeder::class);
+        $this->call(ProductoSeeder::class);
+        $this->call(ProveedorSeeder::class);
     }
 }
