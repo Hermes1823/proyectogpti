@@ -124,8 +124,8 @@
                         <tfoot>
                             <tr>
                                 <td colspan="3" class="text-center">Total</td>
-                                <td > 
-                                  
+                                <td >
+
                                     <input
                                         type="hidden"
                                         class="form-control"
@@ -160,5 +160,5 @@
 @stop
 
 @section('js')
-    <script src="{{ asset('js/venta.js') }}"></script>
+    <script src="{{ asset('js/compra.js') }}"></script>
 @stop

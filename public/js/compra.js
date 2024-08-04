@@ -84,27 +84,27 @@ function rellenarTabla() {
             html =
                 html +
                 `<tr>
-
-            <td>
-            <input name="productos[]" type="hidden" value="${d.codigo_producto}">
-            ${d.nombre_producto}
+          
+            <td> 
+            <input name="productos[]" type="hidden" value="${d.codigo_producto}"> 
+            ${d.nombre_producto} 
             </td>
-            <td>
-                <input name="cantidades[]" type="hidden" class="form-control"  value="${d.cantidad}" >
-                <input  type="number" class="form-control"  value="${d.cantidad}" disabled=true >
+            <td> 
+                <input name="cantidades[]" type="hidden" class="form-control"  value="${d.cantidad}" > 
+                <input  type="number" class="form-control"  value="${d.cantidad}" disabled=true > 
             </td>
             <td>
                 <input name="precios[]" type="hidden" class="form-control" value="${d.precio} " >
                 <input  type="number" class="form-control" value="${d.precio}" disabled=true >
             </td>
-
-            <td>
-
+            
+            <td> 
+                
                 <input  type="number" class="form-control" type="text" value="${d.importe}" disabled=true >
             </td>
             </tr>`;
         });
-
+        
         tabla.innerHTML = html;
         limpiarDatos();
         calcularTotal();
@@ -115,7 +115,7 @@ function rellenarTabla() {
 }
 
 function insertarDatos(lineaVenta) {
-
+    
     let respuesta;
     if (
         lineaVenta.cantidad > 0 &&

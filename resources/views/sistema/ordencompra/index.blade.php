@@ -9,7 +9,7 @@
 @section('content')
     <p>Bienvenidos a la lista Ordenes Compras</p>
 
-    
+
 
     <div class="card">
 
@@ -34,8 +34,8 @@
                     ['label' => 'Actions', 'no-export' => true, 'width' => 10],
                 ];
 
-                
-                $btnEdit = '';
+
+
                 $btnPDF = '';
                 $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                   <i class="fa fa-lg fa-fw fa-trash"></i>
@@ -48,7 +48,7 @@
                     'language' => [
                         'url' => '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
                     ],
-                ]; 
+                ];
 
             @endphp
 
@@ -63,26 +63,26 @@
                         <td>{{ $orden->direccion}}</td>
                         <td>{{ $orden->total}}</td>
 
-                        
+
                         <td>
-                            @can('ordencompra.edit')
+                            {{-- @can('ordencompra.edit')
                             <a href={{route('ordencompra.edit', $orden->id_orden_compra)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>  
-                            @endcan
+                            </a>
+                            @endcan --}}
                             @can('ordencompra.destroy')
                             <form style="display: inline" action="{{ route('ordencompra.destroy', $orden->id_orden_compra) }}"
                                 method="post" class="formEliminar">
                                 @csrf
                                 @method('delete')
                                 {!! $btnDelete !!}
-                            </form>    
+                            </form>
                             @endcan
-                            
-                            
 
-                            
-                            
+
+
+
+
 
                         </td>
                     </tr>
@@ -99,13 +99,13 @@
 @stop
 
 @section('js')
- 
+
 
     <script>
         $(document).ready(function() {
             $('.formEliminar').submit(function(e) {
                 e.preventDefault();
-                //a continuación se pega el código de la alerta 
+                //a continuación se pega el código de la alerta
 
                 Swal.fire({
                     title: "¿Estás seguro?",
