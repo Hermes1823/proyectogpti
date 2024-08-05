@@ -20,10 +20,10 @@ class DetalleVenta extends Model
     public $timestamps = false;
 
     public function orden_venta(){
-        return $this->hasOne(OrdenVenta::class,'id_orden_venta','id_orden_venta');
+        return $this->belongsTo(OrdenVenta::class,'id_orden_venta','id_orden_venta');
     }
 
     public function producto(){
-        return $this->hasOne(Producto::class,'id_producto','id_producto');
+        return $this->belongsTo(Producto::class,'id_producto','id_producto');
     }
 }

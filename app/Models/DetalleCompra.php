@@ -18,5 +18,10 @@ class DetalleCompra extends Model
     ];
     public $timestamps = false;
 
-    
+    public function ordencompra(){
+        return $this->belongsTo(OrdenCompra::class,'id_orden_compra','id_orden_compra');
+    }
+    public function producto(){
+        return $this->belongsTo(Producto::class,'id_producto','id_producto');
+    }
 }

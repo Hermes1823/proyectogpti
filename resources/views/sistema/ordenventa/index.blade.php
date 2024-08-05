@@ -39,9 +39,7 @@
                 $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                   <i class="fa fa-lg fa-fw fa-trash"></i>
               </button>';
-                $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                   <i class="fa fa-lg fa-fw fa-eye"></i>
-               </button>';
+                
 
                 $config = [
                     'language' => [
@@ -77,7 +75,7 @@
                             </form>
                             @endcan
 
-
+                            <a href="{{ route('ordenventa.show',$orden->id_orden_venta) }}" class="btn btn-primary">Reporte</a>
 
 
 

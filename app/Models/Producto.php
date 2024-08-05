@@ -26,29 +26,29 @@ class Producto extends Model
     // Relación con el modelo UnidadMedida
     public function unidadMedida()
     {
-        return $this->belongsTo(UnidadMedida::class, 'id_medida');
-    }
+        return $this->belongsTo(UnidadMedida::class, 'id_medida','id_medida');
+    } 
 
     // Relación con el modelo Marca
     public function marca()
     {
-        return $this->belongsTo(Marca::class, 'id_marca');
+        return $this->belongsTo(Marca::class, 'id_marca','id_marca');
     }
 
     // Relación con el modelo Categoria
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'id_categoria');
+        return $this->belongsTo(Categoria::class, 'id_categoria','id_categoria');
     }
 
 
     // Relacion de muchos a muchos con repecto a Ordenes de compra
-    public function ordenesCompras(){
-        return $this->belongsToMany(OrdenCompra::class,'detalle_orden_compra','id_producto','id_orden_compra');
+    public function detalleCompra(){
+        return $this->hasMany(DetalleCompra::class,'id_producto','id_producto');
     }
 
      // Relacion de muchos a muchos con repecto a Ordenes de venta
-     public function ordenesVentas(){
-        return $this->belongsToMany(OrdenVenta::class,'detalle_orden_venta','id_prodcuto','id_orden_venta');
+     public function detalleVenta(){
+        return $this->hasMany(DetalleVenta::class,'id_producto','id_prodcuto');
     }
 }

@@ -8,6 +8,8 @@ use App\Models\Cliente;
 use App\Models\Producto;
 use App\Models\OrdenVenta;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class OrdenVentaController extends Controller
 {
     /**
@@ -90,7 +92,9 @@ class OrdenVentaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $ordenventa= OrdenVenta::find($id);
+       $pdf=  Pdf::loadView('sistema.ordenventa.pdf',compact('ordenventa'));
+       return $pdf->stream();
     }
 
     /**

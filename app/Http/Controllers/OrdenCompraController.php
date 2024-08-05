@@ -6,6 +6,7 @@ use App\Models\DetalleCompra;
 use App\Models\OrdenCompra;
 use App\Models\Producto;
 use App\Models\Proveedor;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class OrdenCompraController extends Controller
@@ -89,7 +90,9 @@ class OrdenCompraController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $ordencompra= OrdenCompra::find($id);
+        $pdf= Pdf::loadView('sistema.ordencompra.pdf',compact('ordencompra'));
+        return $pdf->stream();
     }
 
     /**
