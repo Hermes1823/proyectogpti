@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->string('direccion');
             $table->string('dni');
+            $table->decimal('total');
 
             $table->foreign('dni')->references('dni')->on('cliente');
         });

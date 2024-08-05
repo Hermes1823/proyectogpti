@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
-    
+
     protected $table='producto';
     protected $primaryKey = 'id_producto';
     protected $fillable = [
@@ -44,11 +44,11 @@ class Producto extends Model
 
     // Relacion de muchos a muchos con repecto a Ordenes de compra
     public function ordenesCompras(){
-        return $this->belongsToMany(OrdenCompra::class,'detalle_orden_compra','id_prodcuto','id_orden_compra');
+        return $this->belongsToMany(OrdenCompra::class,'detalle_orden_compra','id_producto','id_orden_compra');
     }
 
      // Relacion de muchos a muchos con repecto a Ordenes de venta
      public function ordenesVentas(){
-        return $this->belongsToMany(Pedido::class,'detalle_pedido','id_prodcuto','id_pedido');
+        return $this->belongsToMany(OrdenVenta::class,'detalle_orden_venta','id_prodcuto','id_orden_venta');
     }
 }

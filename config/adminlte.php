@@ -322,13 +322,13 @@ return [
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
-        ], 
+        ],
 
-        
+
 
         ['header' => 'Gestion'],
 
-        
+
 
         /*[
             'text' => 'Lista de categorias',
@@ -388,7 +388,7 @@ return [
         [
             'text' => 'Marcas',
             'icon' => 'fas fa-fw fa-share',
-            'submenu' => 
+            'submenu' =>
             [
                 [
                     'text' => 'Lista Marcas',
@@ -402,7 +402,8 @@ return [
                 ],
             ],
         ],
-        
+
+
         [
             'text' => 'Proveedores',
             'icon' => 'fas fa-fw fa-share',
@@ -452,6 +453,22 @@ return [
             ],
         ],
         [
+            'text'=>'Orden Venta',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu'=>[
+                [
+                    'text' => 'Lista de Orden Venta',
+                    'route' => 'ordenventa.index',
+                    'can' => 'ordenventa.index',
+                ],
+                [
+                    'text' => 'Nueva Orden Venta',
+                    'route' => 'ordenventa.create',
+                    'can' => 'ordenventa.create',
+                ],
+            ],
+        ],
+        [
             'text'=>'Clientes',
             'icon'=>'fas fa-fw fa-share',
             'submenu'=>
@@ -467,7 +484,7 @@ return [
                     'can' => 'cliente.create',
                 ],
             ],
-    
+
         ],
         ['header' => 'labels'],
         [
