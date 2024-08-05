@@ -55,5 +55,16 @@ class ProductoSeeder extends Seeder
   'precio_compra'=>1.5,
   'cantidad'=>50
 ]);
+
+Producto::create([
+  'descripcion'=>'Papa huevo de indio',
+'imagen'=>'sinruta',
+'id_medida'=>1,
+'id_marca'=>1,
+'id_categoria'=>1,
+'precio_venta'=>2,
+'precio_compra'=>1.5,
+'cantidad'=>100
+]);
     }
 }
