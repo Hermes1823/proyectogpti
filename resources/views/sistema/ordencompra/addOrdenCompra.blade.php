@@ -72,26 +72,27 @@
 
                 {{-- direccion --}}
                 <div class="row">
-                    <div class="col col-md-4 col-sm-6">
+                    <div class="col col-md-6  col-sm-6">
                         <x-adminlte-select label="Producto" name="producto" id="listaProductos"
                             data-placeholder="Seleccione un producto">
+                            <option selected disabled>Seleccione un producto</option>
                             @foreach ($productos as $p)
                                 <option value="{{ $p->id_producto }}" data-precio={{ $p->precio_compra }}>
                                     {{ $p->descripcion }}</option>
                             @endforeach
                             </x-adminlte-input>
                     </div>
-                    <div class="col col-md-4 col-sm-6">
+                    <div class="col col-md-2 col-sm-6">
                         <x-adminlte-input label="Cantidad" type="number" name="cantidad" id="cantidad">
 
                         </x-adminlte-input>
                     </div>
-                    <div class="col col-md-4 col-sm-6">
+                    <div class="col col-md-2 col-sm-6">
                         <x-adminlte-input label="Precio" type="number" name="precio" id="precio" disabled=true>
 
                         </x-adminlte-input>
                     </div>
-                    <div class="col col-md-4 col-sm-6">
+                    <div class="col col-md-2 col-sm-6">
                         <x-adminlte-input label="Importe" type="number" name="importe" id="importe" disabled=true>
 
                         </x-adminlte-input>
@@ -101,12 +102,17 @@
 
 
 
-                <div class="row">
+                <div class="row gx-5">
+                    <div class="col">
+                        <x-adminlte-button class="btn-flat " type="submit" label="Guardar Orden Venta" theme="primary"
+                            icon="fas fa-lg fa-save" id="brnAgregarOrden" />
+                    </div>
+                    <div class="col">
+                        <x-adminlte-button class="btn-flat " type="submit" label="Agregar Producto" theme="success"
+                            icon="fas fa-solid fa-plus" id="btnAgregarProducto" onclick="rellenarTabla()" />
+                    </div>
 
-                    <x-adminlte-button class="btn-flat" type="submit" label="Guardar Orden Venta" theme="primary"
-                        icon="fas fa-lg fa-save" id="brnAgregarOrden" />
-                    <x-adminlte-button class="btn-flat" type="submit" label="Agregar Producto" theme="success"
-                        icon="fas fa-solid fa-plus" id="btnAgregarProducto" onclick="rellenarTabla()" />
+
                 </div>
                 <br>
                 <div class="container-fluid">
@@ -124,26 +130,14 @@
                         <tfoot>
                             <tr>
                                 <td colspan="3" class="text-center">Total</td>
-                                <td >
+                                <td>
 
-                                    <input
-                                        type="hidden"
-                                        class="form-control"
-                                        name="total"
-                                        id="txtTotal"
-                                        aria-describedby="helpId"
-                                        placeholder=""
-                                    />
+                                    <input type="hidden" class="form-control" name="total" id="txtTotal"
+                                        aria-describedby="helpId" placeholder="" />
 
-                                    <input
-                                    type="number"
-                                    class="form-control"
-                                    id="txtTotal_"
-                                    aria-describedby="helpId"
-                                    placeholder=""
-                                    disabled=true
-                                />
-                                 </td>
+                                    <input type="number" class="form-control" id="txtTotal_" aria-describedby="helpId"
+                                        placeholder="" disabled=true />
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
