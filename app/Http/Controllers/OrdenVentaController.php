@@ -59,14 +59,20 @@ class OrdenVentaController extends Controller
         $precios=$request->precios;
         $productos=$request->productos;
         $detalle= null;
+        $producto = null;
         for($i=0;$i<count($cantidades);$i++){
+            // Guarda detalle
             $detalle= new DetalleVenta();
             $detalle->id_orden_venta=$id;
             $detalle->id_producto=$productos[$i];
             $detalle->cantidad=$cantidades[$i];
             $detalle->precio=$precios[$i];
             $detalle->save();
+            //Disminuye existencia en almacen
 
+            $producto= Producto::find($productos[$i]);
+            $producto->cantidad=$producto->cantidad-$cantidades[$i];
+            $producto->save();
 
         }
 

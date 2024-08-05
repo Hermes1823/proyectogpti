@@ -58,14 +58,20 @@ class OrdenCompraController extends Controller
         $precios=$request->precios;
         $productos=$request->productos;
         $detalle= null;
+        $producto=null;
         for($i=0;$i<count($cantidades);$i++){
+            //Agrega los detalles de compra
             $detalle= new DetalleCompra();
             $detalle->id_orden_compra=$id;
             $detalle->id_producto=$productos[$i];
             $detalle->cantidad=$cantidades[$i];
             $detalle->precio=$precios[$i];
             $detalle->save();
+            //Aumenta existencia en almacen
 
+            $producto= Producto::find($productos[$i]);
+            $producto->cantidad=$producto->cantidad+$cantidades[$i];
+            $producto->save();
 
         }
 
