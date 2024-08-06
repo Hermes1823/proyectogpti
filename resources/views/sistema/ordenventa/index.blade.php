@@ -75,7 +75,9 @@
                             </form>
                             @endcan
 
-                            <a href="{{ route('ordenventa.show',$orden->id_orden_venta) }}" class="btn btn-primary">Reporte</a>
+                            <a href="{{ route('ordenventa.show',$orden->id_orden_venta) }}" class="btn btn-xs btn-default text-danger mx-1 shadow" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                            </a>
 
 
 
