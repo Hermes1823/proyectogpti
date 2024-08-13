@@ -10,6 +10,13 @@ class CategoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:categoria.index')->only('index');
+        $this->middleware('can:categoria.create')->only('create');
+        $this->middleware('can:categoria.edit')->only('edit');
+        $this->middleware('can:categoria.destroy')->only('destroy');
+    }
     public function index()
     {
         //

@@ -13,4 +13,8 @@ class UnidadMedida extends Model
     protected $primaryKey = 'id_medida';
     protected $fillable = ['descripcion'];
     public $timestamps = false;
+
+    public function productos(){
+        return $this->hasMany(Producto::class,'id_medida','id_medida');
+    }
 }

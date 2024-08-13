@@ -10,10 +10,12 @@
     <p>Bienvenidos a la lista de proveedores</p>
 
     <div class="card">
+        @can('proveedor.pdf')
         <div class="card-body">
             <a href="{{ route('proveedor.pdf') }}" class="btn btn-primary">Generar PDF</a>
             <!-- Resto del código existente para el contenido de la tabla de promociones -->
         </div>
+        @endcan
         <div class="card-body">
             {{-- Setup data for datatables --}}
             @php
@@ -53,16 +55,20 @@
                         <td>{{ $proveedor->direccion}}</td>
                         <td>{{ $proveedor->encargado}}</td>
                         <td>
-                            <a href={{route('proveedor.edit', $proveedor)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>
+                           @can('proveedor.edit')
+                           <a href={{route('proveedor.edit', $proveedor)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                        </a>
+                           @endcan
 
+                            @can('proveedor.destroy')
                             <form style="display: inline" action="{{ route('proveedor.destroy', $proveedor->ruc) }}"
                                 method="post" class="formEliminar">
                                 @csrf
                                 @method('delete')
                                 {!! $btnDelete !!}
                             </form>
+                            @endcan
 
                         </td>
                     </tr>

@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -134,8 +134,8 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
+    'usermenu_header' => true,
+    'usermenu_header_class' => 'bg-success',
     'usermenu_image' => false,
     'usermenu_desc' => false,
     'usermenu_profile_url' => false,
@@ -315,19 +315,14 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        [
-            'text' => 'Reportes Gráficos',
-            'route' => 'rgrafico',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-
+        
         ///
 
         [
             'text' => 'Reportes Gráficos',
             'icon' => 'fas fa-fw fa-share',
+            'route' => 'rgrafico',
+            'can' => 'rgrafico',
             'submenu' => [
                 [
                     'text' => 'Grafico de barras',
@@ -349,9 +344,10 @@ return [
 
         
 
+
         ['header' => 'Gestion'],
 
-        
+
 
         /*[
             'text' => 'Lista de categorias',
@@ -370,10 +366,12 @@ return [
                 [
                     'text' => 'Lista Categorias',
                     'route' => 'categoria.index',
+                    'can'=>'categoria.index'
                 ],
                 [
                     'text' => 'Nueva Categoria',
                     'route' => 'categoria.create',
+                    'can'=>'categoria.create',
                 ],
 
                 /*[
@@ -409,17 +407,22 @@ return [
         [
             'text' => 'Marcas',
             'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
+            'submenu' =>
+            [
                 [
                     'text' => 'Lista Marcas',
                     'route' => 'marca.index',
+                    'can'=>'marca.index'
                 ],
                 [
                     'text' => 'Nueva Marca',
                     'route' => 'marca.create',
+                    'can' => 'marca.create',
                 ],
             ],
         ],
+
+
         [
             'text' => 'Proveedores',
             'icon' => 'fas fa-fw fa-share',
@@ -427,10 +430,12 @@ return [
                 [
                     'text' => 'Lista Proveedores',
                     'route' => 'proveedor.index',
+                    'can' => 'proveedor.index',
                 ],
                 [
                     'text' => 'Nuevo Proveedor',
                     'route' => 'proveedor.create',
+                    'can' => 'proveedor.create',
                 ],
             ],
         ],
@@ -441,10 +446,12 @@ return [
                 [
                     'text' => 'Lista Productos',
                     'route' => 'producto.index',
+                    'can' => 'producto.index',
                 ],
                 [
                     'text' => 'Nuevo Producto',
                     'route' => 'producto.create',
+                    'can' => 'producto.create',
                 ],
             ],
         ],
@@ -455,18 +462,55 @@ return [
                 [
                     'text' => 'Lista de Orden Compra',
                     'route' => 'ordencompra.index',
+                    'can' => 'ordencompra.index',
                 ],
                 [
                     'text' => 'Nueva Orden Compra',
                     'route' => 'ordencompra.create',
+                    'can' => 'ordencompra.create',
                 ],
             ],
+        ],
+        [
+            'text'=>'Orden Venta',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu'=>[
+                [
+                    'text' => 'Lista de Orden Venta',
+                    'route' => 'ordenventa.index',
+                    'can' => 'ordenventa.index',
+                ],
+                [
+                    'text' => 'Nueva Orden Venta',
+                    'route' => 'ordenventa.create',
+                    'can' => 'ordenventa.create',
+                ],
+            ],
+        ],
+        [
+            'text'=>'Clientes',
+            'icon'=>'fas fa-fw fa-share',
+            'submenu'=>
+            [
+                [
+                    'text' => 'Lista Clientes',
+                    'route' => 'cliente.index',
+                    'can' => 'cliente.index',
+                ],
+                [
+                    'text' => 'Nuevo Cliente',
+                    'route' => 'cliente.create',
+                    'can' => 'cliente.create',
+                ],
+            ],
+
         ],
         ['header' => 'labels'],
         [
             'text' => 'importancia',
             'icon_color' => 'red',
             'route' => 'rgrafico',
+            'can' => 'rgrafico',
         ],
         [
             'text' => 'warning',

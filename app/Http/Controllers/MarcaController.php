@@ -9,9 +9,17 @@ class MarcaController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:marca.index')->only('index');
+        $this->middleware('can:marca.create')->only('create');
+        $this->middleware('can:marca.edit')->only('edit');
+        $this->middleware('can:marca.destroy')->only('destroy');
+    }
     public function index()
     {
          //
+
          $marcas=Marca::all();
          return view('sistema.marca.listMarca', compact('marcas'));
     }
@@ -53,7 +61,7 @@ class MarcaController extends Controller
      */
     public function show(string $id)
     {
-        
+
     }
 
     /**
@@ -77,7 +85,7 @@ class MarcaController extends Controller
         $marca->save();
 
         return back()->with('message','Actualizado correctamente');
-        
+
     }
 
     /**

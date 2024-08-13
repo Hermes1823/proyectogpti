@@ -27,6 +27,11 @@ class OrdenCompra extends Model
     {
         return $this->belongsTo(Proveedor::class, 'ruc');
     }
+ 
+    public function detalles(){
+        return $this->hasMany(DetalleCompra::class,'id_orden_compra','id_orden_compra');
+    }
+
 
 
 }

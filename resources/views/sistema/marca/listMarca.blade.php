@@ -49,16 +49,21 @@
                         <td>{{ $marca->id_marca}}</td>
                         <td>{{ $marca->descripcion }}</td>
                         <td>
+                            @can('marca.edit')
                             <a href={{route('marca.edit', $marca)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>
-                            
+                            </a>  
+                            @endcan
+                           
+                            @can('marca.destroy')
                             <form style="display: inline" action="{{ route('marca.destroy', $marca->id_marca) }}"
                                 method="post" class="formEliminar">
                                 @csrf
                                 @method('delete')
                                 {!! $btnDelete !!}
-                            </form>
+                            </form> 
+                            @endcan
+                            
 
                         </td>
                     </tr>

@@ -13,4 +13,11 @@ class Categoria extends Model
     protected $primaryKey = 'id_categoria';
     protected $fillable = ['descripcion'];
     public $timestamps = false;
+
+    function productos(){
+        return $this->hasMany(Producto::class,'id_categoria','id_categoria');
+    }
+
+    
 }
+ 

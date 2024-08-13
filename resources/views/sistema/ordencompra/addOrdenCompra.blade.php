@@ -27,66 +27,122 @@
             <form action="{{ route('ordencompra.store') }}" method="POST">
                 @csrf
                 {{-- proveedor --}}
-                <x-adminlte-select2 name="ruc" label="Proveedor" label-class="text-lightblue" igroup-size="lg"
-                    data-placeholder="Select an option...">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-gradient-info">
-                            <i class="fas fa-car-side"></i>
-                        </div>
-                    </x-slot>
-                    @foreach ($proveedores as $proveedor)
-                        <option value="{{ $proveedor->ruc }}">{{ $proveedor->razon_social }}</option>
-                    @endforeach
-                </x-adminlte-select2>
+                <div class="row">
+                    <div class="col">
+                        <x-adminlte-select name="ruc" label="Proveedor" label-class="text-lightblue" igroup-size="lg"
+                            data-placeholder="Select an option..." id="listaProveedores">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-car-side"></i>
+                                </div>
+                            </x-slot>
+                            @foreach ($proveedores as $proveedor)
+                                <option value="{{ $proveedor->ruc }}">{{ $proveedor->razon_social }}</option>
+                            @endforeach
+                        </x-adminlte-select>
+                    </div>
+                    <div class="col">
+                        <x-adminlte-input type="date" name="fecha" label="Fecha" placeholder="Selecciona la fecha"
+                            label-class="text-lightblue">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar text-lightblue"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input>
+                    </div>
+                </div>
 
-                {{-- fecha --}}
 
-                <x-adminlte-input type="date" name="fecha" label="Fecha" placeholder="Selecciona la fecha"
-                    label-class="text-lightblue" >
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fa fa-calendar text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
+                <div class="row">
+                    <div class="col col-md-6 col-sm-12">
+                        <x-adminlte-input name="direccion" type="text" label="Direccion"
+                            placeholder="ingrese la direccion ..." label-class="text-lightblue">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text">
+                                    <i class="fas fa-user text-lightblue"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input>
+                    </div>
+
+                </div>
+
+
 
                 {{-- direccion --}}
+                <div class="row">
+                    <div class="col col-md-6  col-sm-6">
+                        <x-adminlte-select label="Producto" name="producto" id="listaProductos"
+                            data-placeholder="Seleccione un producto">
+                            <option selected disabled>Seleccione un producto</option>
+                            @foreach ($productos as $p)
+                                <option value="{{ $p->id_producto }}" data-precio={{ $p->precio_compra }}>
+                                    {{ $p->descripcion }}</option>
+                            @endforeach
+                            </x-adminlte-input>
+                    </div>
+                    <div class="col col-md-2 col-sm-6">
+                        <x-adminlte-input label="Cantidad" type="number" name="cantidad" id="cantidad">
 
-                <x-adminlte-input name="direccion" label="Direccion" placeholder="ingrese la direccion ..." label-class="text-lightblue">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-user text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-                {{-- sub total --}}
+                        </x-adminlte-input>
+                    </div>
+                    <div class="col col-md-2 col-sm-6">
+                        <x-adminlte-input label="Precio" type="number" name="precio" id="precio" disabled=true>
 
-                <x-adminlte-input type="number" name="sub_total" label="Sub Total"
-                    placeholder="Ingresa el precio de venta" label-class="text-lightblue" value="{{ old('sub_total') }}"
-                    step="0.01" min="0">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-dollar-sign text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
+                        </x-adminlte-input>
+                    </div>
+                    <div class="col col-md-2 col-sm-6">
+                        <x-adminlte-input label="Importe" type="number" name="importe" id="importe" disabled=true>
 
-                {{-- total --}}
+                        </x-adminlte-input>
+                    </div>
+                </div>
 
-                <x-adminlte-input type="number" name="total" label="Total"
-                    placeholder="Ingresa el total ..." label-class="text-lightblue" value="{{ old('total') }}"
-                    step="0.01" min="0">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-dollar-sign text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
 
-                
 
-                <x-adminlte-button class="btn-flat" type="submit" label="guardar" theme="primary"
-                    icon="fas fa-lg fa-save" />
+
+                <div class="row gx-5">
+                    <div class="col">
+                        <x-adminlte-button class="btn-flat " type="submit" label="Guardar Orden Venta" theme="primary"
+                            icon="fas fa-lg fa-save" id="brnAgregarOrden" />
+                    </div>
+                    <div class="col">
+                        <x-adminlte-button class="btn-flat " type="submit" label="Agregar Producto" theme="success"
+                            icon="fas fa-solid fa-plus" id="btnAgregarProducto" onclick="rellenarTabla()" />
+                    </div>
+
+
+                </div>
+                <br>
+                <div class="container-fluid">
+
+                    <table class=" table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nombre Producto</th>
+                                <th scope="col">Cantidad </th>
+                                <th scope="col">Precio Unitario</th>
+                                <th scope="col">Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpo_tabla"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-center">Total</td>
+                                <td>
+
+                                    <input type="hidden" class="form-control" name="total" id="txtTotal"
+                                        aria-describedby="helpId" placeholder="" />
+
+                                    <input type="number" class="form-control" id="txtTotal_" aria-describedby="helpId"
+                                        placeholder="" disabled=true />
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
             </form>
         </div>
     </div>
@@ -98,5 +154,5 @@
 @stop
 
 @section('js')
-    {{-- Additional JS code --}}
+    <script src="{{ asset('js/compra.js') }}"></script>
 @stop
