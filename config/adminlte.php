@@ -323,6 +323,30 @@ return [
             'label_color' => 'success',
         ],
 
+        ///
+
+        [
+            'text' => 'Reportes Gráficos',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Grafico de barras',
+                    'route' => 'rgrafico',
+                ],
+                [
+                    'text' => 'Grafico circular',
+                    'route' => 'reportea',
+                ],
+
+                [
+                    'text' => 'Reportes Gráficos',
+                    'route' => 'reportesgraficos',
+                ],
+            ],
+        ],
+
+        ///
+
         
 
         ['header' => 'Gestion'],
@@ -340,7 +364,7 @@ return [
             'icon' => 'fas fa-fw fa-tags',
         ],*/
         [
-            'text' => 'Categorias',
+            'text' => 'CategoriasV2',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
                 [

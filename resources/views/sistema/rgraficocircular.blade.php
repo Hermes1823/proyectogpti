@@ -18,14 +18,13 @@
 
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.querySelector('#sumacategoria').getContext('2d');
             const labels = {!! json_encode($resultados->pluck('categoria')) !!};
             const data = {!! json_encode($resultados->pluck('total')) !!};
 
-            const totalSum = data.reduce((acc, value) => acc + value, 0);
+            console.log(labels, data);
 
             const backgroundColors = [
                 'rgba(255, 99, 132, 0.2)',
@@ -62,22 +61,9 @@
                         legend: {
                             display: true,
                             position: 'top'
-                        },
-                        datalabels: {
-                            formatter: (value, ctx) => {
-                                const percentage = (value / totalSum * 100).toFixed(2) + '%';
-                                return percentage;
-                            },
-                            color: '#fff',
-                            backgroundColor: '#404040',
-                            borderRadius: 3,
-                            font: {
-                                weight: 'bold'
-                            }
                         }
                     }
-                },
-                plugins: [ChartDataLabels]
+                }
             });
         });
     </script>

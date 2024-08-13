@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\GroupRestController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OrdenCompraController;
 use App\Http\Controllers\PdfproveedorController;
@@ -11,8 +12,12 @@ use App\Http\Controllers\PdfmarcaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductopdfController;
+use App\Http\Controllers\ReportegraficoController;
+use App\Http\Controllers\RgraficocircularController;
 use App\Http\Controllers\RgraficoController;
 use App\Models\Producto;
+use App\Http\Controllers\reporteaController;
+use App\Models\Reportea;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +54,11 @@ Route::middleware([
     Route::resource('/ordencompra',OrdenCompraController::class)->names('ordencompra');
 
     Route::get('/grafico', [RgraficoController::class, 'index'])->name('rgrafico');
+
+    Route::get('/graficocircular', [RgraficocircularController::class, 'index'])->name('rgraficocircular');
+    Route::get('/reportesgraficos', [ReportegraficoController::class, 'index'])->name('reportesgraficos');
+
+
+    //Route::get('/graficojson', [GroupRestController::class, 'totalProductosPorCategoria']);
+    Route::get('reportea',[reporteaController::class, 'index'])->name('reportea');
 });
