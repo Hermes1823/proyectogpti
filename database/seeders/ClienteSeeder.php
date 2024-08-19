@@ -12,20 +12,21 @@ class ClienteSeeder extends Seeder
      */
     public function run(): void
     {
-        Cliente::create([
-            'DNI'=>'12345678',
-            'nombre'=>'Usuario1',
-            'apellidos'=>'Apellido1',
-            'numero'=>'12345677',
-            'estado'=>1
-        ]);
-        Cliente::create([
-            'DNI'=>'11111111',
-            'nombre'=>'Usuario2',
-            'apellidos'=>'Apellido2',
-            'numero'=>'123456789',
-            'estado'=>1
-        ]);
+        Cliente::factory()->count(100)->create();
+        // Cliente::create([
+        //     'DNI'=>'12345678',
+        //     'nombre'=>'Usuario1',
+        //     'apellidos'=>'Apellido1',
+        //     'numero'=>'12345677',
+        //     'estado'=>1
+        // ]);
+        // Cliente::create([
+        //     'DNI'=>'11111111',
+        //     'nombre'=>'Usuario2',
+        //     'apellidos'=>'Apellido2',
+        //     'numero'=>'123456789',
+        //     'estado'=>1
+        // ]);
 
     }
 }

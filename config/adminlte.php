@@ -315,7 +315,7 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        
+
         ///
 
         [
@@ -342,7 +342,7 @@ return [
 
         ///
 
-        
+
 
 
         ['header' => 'Gestion'],
@@ -360,7 +360,7 @@ return [
             'icon' => 'fas fa-fw fa-tags',
         ],*/
         [
-            'text' => 'CategoriasV2',
+            'text' => 'Categorias',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
                 [
@@ -505,23 +505,23 @@ return [
             ],
 
         ],
-        ['header' => 'labels'],
-        [
-            'text' => 'importancia',
-            'icon_color' => 'red',
-            'route' => 'rgrafico',
-            'can' => 'rgrafico',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
+        // ['header' => 'labels'],
+        // [
+        //     'text' => 'importancia',
+        //     'icon_color' => 'red',
+        //     'route' => 'rgrafico',
+        //     'can' => 'rgrafico',
+        // ],
+        // [
+        //     'text' => 'warning',
+        //     'icon_color' => 'yellow',
+        //     'url' => '#',
+        // ],
+        // [
+        //     'text' => 'information',
+        //     'icon_color' => 'cyan',
+        //     'url' => '#',
+        // ],
     ],
 
     /*

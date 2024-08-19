@@ -9,8 +9,13 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <x-adminlte-card title="Productos por Categoría" theme="primary" icon="fas fa-chart-bar" removable collapsible>
-                <canvas id="sumacategoria" style="height: 400px; width: 100%;"></canvas>
+            <x-adminlte-card title="Cantidad de productos en el inventario" theme="primary" icon="fas fa-chart-bar" removable collapsible>
+                <canvas id="productos" style="height: 200px; width: 100%;"></canvas>
+            </x-adminlte-card>
+        </div>
+        <div class="card-body">
+            <x-adminlte-card title="Cantidad de productos por categoria" theme="primary" icon="fas fa-chart-bar" removable collapsible>
+                <canvas id="sumacategoria" ></canvas>
             </x-adminlte-card>
         </div>
     </div>
@@ -20,6 +25,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script>
+        resultados = @json($productos);
+        etiquetas = resultados.map((d) => d.descripcion); //labels
+        cantidades = resultados.map((c) => c.cantidad);
+        opciones={
+            plugins:{
+                legend:{
+                    display:false
+                },
+                tooltip:{
+                    enabled:false
+                }
+            }
+        };
+        // console.log(etiquetas);
+        // console.log(cantidades);
+
+        document.addEventListener('DOMContentLoaded', graficoBarras);
+
+        function graficoBarras() {
+            const grafico = document.getElementById('productos');
+            caracteristicas = {
+                type: 'bar',
+                data: {
+                    labels: etiquetas,
+                    datasets: [{
+                        label: "#Cantidad de productos",
+                        data: cantidades,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+            new Chart(grafico, caracteristicas);
+        }
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.querySelector('#sumacategoria').getContext('2d');
             const labels = {!! json_encode($resultados->pluck('categoria')) !!};

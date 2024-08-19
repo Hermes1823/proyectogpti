@@ -17,7 +17,9 @@ class RgraficoController extends Controller
         ->groupBy('categoria.descripcion')
         ->get();
 
-    return view('sistema.rgrafico', compact('resultados'));
+    $productos=Producto::all(['descripcion','cantidad']);
+
+    return view('sistema.rgrafico', compact('resultados','productos'));
 }
 
 }
