@@ -10,15 +10,16 @@
     <div class="card">
         <div class="card-body">
             <x-adminlte-card title="Ventas por Año" theme="primary" icon="fas fa-chart-bar" removable collapsible>
-                <canvas id="productos" style="height: 300px; width: 100%;"></canvas>
+                <canvas id="productos" style=" width: 100%;"></canvas>
             </x-adminlte-card>
         </div>
     </div>
 @stop
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdnjs.com/libraries/Chart.js"></script> --}}
     <script>
         resultados = @json($ventas);
         etiquetas = resultados.map((d) => d.año); //labels
@@ -41,7 +42,7 @@
         function graficoBarras() {
             const grafico = document.getElementById('productos');
             caracteristicas = {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: etiquetas,
                     datasets: [{

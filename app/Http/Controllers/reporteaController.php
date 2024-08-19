@@ -11,7 +11,7 @@ class reporteaController extends Controller
 {
     public function index(){
         $ventas= DB::select('select  year(fecha) as año, sum(total) as total from orden_venta
-            group by año');
+            group by año order by 1');
         // return $venta;
         // $navegadores=Reportea::all();
 
@@ -20,6 +20,6 @@ class reporteaController extends Controller
 
         //     $puntos[]=['name' => $navegador['nombre'], 'y'=>floatval($navegador['porcentaje'])];
         // }
-        return view('sistema.reportesgraficos.grafico_ventas', compact('ventas'));
+        return view('sistema.reportesgraficos.ventas', compact('ventas'));
     }
 }

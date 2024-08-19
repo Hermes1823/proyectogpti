@@ -13,17 +13,17 @@
                 <canvas id="productos" style="height: 200px; width: 100%;"></canvas>
             </x-adminlte-card>
         </div>
-        <div class="card-body">
+        {{-- <div class="card-body">
             <x-adminlte-card title="Cantidad de productos por categoria" theme="primary" icon="fas fa-chart-bar" removable collapsible>
                 <canvas id="sumacategoria" ></canvas>
             </x-adminlte-card>
-        </div>
+        </div> --}}
     </div>
 @stop
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script> --}}
     <script>
         resultados = @json($productos);
         etiquetas = resultados.map((d) => d.descripcion); //labels

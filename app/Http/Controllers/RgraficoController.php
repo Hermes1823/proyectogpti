@@ -19,7 +19,7 @@ class RgraficoController extends Controller
 
     $productos=Producto::all(['descripcion','cantidad']);
 
-    return view('sistema.rgrafico', compact('resultados','productos'));
+    return view('sistema.reportesgraficos.productos', compact('resultados','productos'));
 }
 
 }

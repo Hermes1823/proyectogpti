@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Producto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+
 use Tests\TestCase;
 
 class ProductoTest extends TestCase
@@ -33,7 +35,7 @@ class ProductoTest extends TestCase
         $producto->cantidad = 2;
         $producto->id_categoria = 1;// este es un select 2 y agarra la variable desripcion de categoria
 
-        $response = $this->post('http://localhost:8000/producto',$producto);
+        $response = $this->post('http://localhost:8000/producto',[$producto]);
 
         $response->assertStatus(201);
     }

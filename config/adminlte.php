@@ -320,23 +320,23 @@ return [
 
         [
             'text' => 'Reportes Gráficos',
-            'icon' => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-signal',
             'route' => 'rgrafico',
             'can' => 'rgrafico',
             'submenu' => [
                 [
-                    'text' => 'Grafico de barras',
+                    'text' => 'Almacen',
                     'route' => 'rgrafico',
                 ],
                 [
-                    'text' => 'Grafico circular',
+                    'text' => 'Ventas',
                     'route' => 'reportea',
                 ],
 
-                [
-                    'text' => 'Reportes Gráficos',
-                    'route' => 'reportesgraficos',
-                ],
+                // [
+                //     'text' => 'Reportes Gráficos',
+                //     'route' => 'reportesgraficos',
+                // ],
             ],
         ],
 
