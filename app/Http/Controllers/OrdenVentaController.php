@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Test_Orden_Venta;
+use DB;
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\DetalleVenta;
 use App\Models\Cliente;
 use App\Models\Producto;
 use App\Models\OrdenVenta;
+use Illuminate\Support\Carbon;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -44,47 +48,65 @@ class OrdenVentaController extends Controller
             'fecha' => 'required',
             'direccion' => 'required',
             'total' => 'required',
-
+            'detalles'=> 'required',
         ]);
+        $hora_inicio=Carbon::parse(  $request->hora_inicio);
 
-        $ordenventa = new OrdenVenta();
 
-        $ordenventa->dni = $request->input('dni');
-        $ordenventa->fecha = $request->input('fecha');
-        $ordenventa->direccion = $request->input('direccion');
-        $ordenventa->total = $request->input('total');
-        $ordenventa->save();
+        try{
+            DB::beginTransaction();
+            $ordenventa = new OrdenVenta();
+            $detalles= json_decode( $request->get('detalles'));
+            $ordenventa->dni = $request->input('dni');
+            $ordenventa->fecha = $request->input('fecha');
+            $ordenventa->direccion = $request->input('direccion');
+            $ordenventa->total = $request->input('total');
+            $ordenventa->save();
 
-        // Guardar los detalles
-        $id=$ordenventa->id_orden_venta;
-        $cantidades=$request->cantidades;
-        $precios=$request->precios;
-        $productos=$request->productos;
-        $detalle= null;
-        $producto = null;
-        for($i=0;$i<count($cantidades);$i++){
-            // Guarda detalle
-            $detalle= new DetalleVenta();
-            $detalle->id_orden_venta=$id;
-            $detalle->id_producto=$productos[$i];
-            $detalle->cantidad=$cantidades[$i];
-            $detalle->precio=$precios[$i];
-            $detalle->save();
-            //Disminuye existencia en almacen
+            // Guardar los detalles
+            $id=$ordenventa->id_orden_venta;
+            $detalle= null;
+            foreach($detalles as $linea){
+                // Guarda detalle
+                $detalle= new DetalleVenta();
+                $detalle->id_orden_venta=$id;
+                $detalle->id_producto=$linea->codigo_producto;
+                $detalle->cantidad=$linea->cantidad;
+                $detalle->precio=$linea->precio;
+                $detalle->save();
+                //Disminuye existencia en almacen
 
-            $producto= Producto::find($productos[$i]);
-            $producto->cantidad=$producto->cantidad-$cantidades[$i];
-            $producto->save();
+                $producto= Producto::find($linea->codigo_producto);
+                $producto->cantidad=$producto->cantidad-$linea->cantidad;
+                $producto->save();
+                //
+                $hora_final= Carbon::now();
+            $diferencia_tiempo=$hora_inicio->diff($hora_final)->format('%H:%I:%S');
+            $diferencia_segundos= $hora_inicio->diffInSeconds($hora_final);
+            $test_venta= new Test_Orden_Venta();
+            $test_venta->fecha= Carbon::now()->format('d/m/Y');
+            $test_venta->hora_inicio=$hora_inicio->format('H:i:s');
+            $test_venta->hora_final=$hora_final->format('H:i:s');
+            $test_venta->diferencia_tiempo=$diferencia_tiempo;
+            $test_venta->diferencia_segundo=$diferencia_segundos;
+            $test_venta->save();
+                //return back()->with('message','registro exitoso');
+                DB::commit();
+                session()->flash('message', 'registro exitoso');
 
+                // Redirigir a la vista categoria.create
+                return redirect()->route('ordenventa.create');
+                //return $producto;
+            }
+        }catch(Exception $e){
+            DB::rollback();
+            session()->flash('message', "Ocurrio un error inesperado:  $e");
+
+            return redirect()->route("ordencompra.create");
         }
 
-        //return back()->with('message','registro exitoso');
 
-        session()->flash('message', 'registro exitoso');
 
-        // Redirigir a la vista categoria.create
-        return redirect()->route('ordenventa.create');
-        //return $producto;
     }
 
     /**
