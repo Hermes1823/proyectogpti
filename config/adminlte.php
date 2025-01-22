@@ -453,6 +453,11 @@ return [
                     'route' => 'producto.create',
                     'can' => 'producto.create',
                 ],
+                [
+                    'text' => 'Reabestecimiento',
+                    'route' => 'reabesticimiento.index',
+                    'can' => 'producto.create',
+                ],
             ],
         ],
         [

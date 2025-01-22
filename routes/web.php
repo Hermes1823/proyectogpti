@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReabesticimientoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CategoriaController;
@@ -64,4 +65,5 @@ Route::middleware([
     Route::get('reportea',[reporteaController::class, 'index'])->name('reportea');
     Route::resource('/ordenventa', OrdenVentaController::class)->names('ordenventa');
     Route::get('/grafico', [RgraficoController::class, 'index'])->middleware('can:rgrafico')->name('rgrafico');
+    Route::resource("reabesticimiento",ReabesticimientoController::class);
 });
