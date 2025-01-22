@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->decimal('precio');
 
-            $table->foreign('id_orden_compra')->references('id_orden_compra')->on('orden_compra');
+            $table->foreign('id_orden_compra')->references('id_orden_compra')->on('orden_compra')->onDelete("CASCADE");
             $table->foreign('id_producto')->references('id_producto')->on('producto');
         });
     }

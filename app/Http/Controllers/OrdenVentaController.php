@@ -102,7 +102,7 @@ class OrdenVentaController extends Controller
             DB::rollback();
             session()->flash('message', "Ocurrio un error inesperado:  $e");
 
-            return redirect()->route("ordencompra.create");
+            return redirect()->route("ordenventa.create");
         }
 
 

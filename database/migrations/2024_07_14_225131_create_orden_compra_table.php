@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('sub_total');
             $table->decimal('total');
             $table->string('ruc',25);
-
+            $table->enum("estado",["PENDIENTE","RECIBIDA","CANCELADA"])->default("PENDIENTE");
             $table->foreign('ruc')->references('ruc')->on('proveedor');
         });
     }

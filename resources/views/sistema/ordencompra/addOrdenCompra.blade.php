@@ -27,10 +27,12 @@
             <form action="{{ route('ordencompra.store') }}" method="POST">
                 @csrf
                 {{-- proveedor --}}
+                <input type="hidden" name="detalles" id="detalles_venta">
+
                 <div class="row">
                     <div class="col">
-                        <x-adminlte-select name="ruc" label="Proveedor" label-class="text-lightblue" igroup-size="lg"
-                            data-placeholder="Select an option..." id="listaProveedores">
+                        <x-adminlte-select name="ruc" label="Proveedor" label-class="text-lightblue"
+                            data-placeholder="SeLeccione un proveedor" id="listaProveedores">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-info">
                                     <i class="fas fa-car-side"></i>
@@ -42,11 +44,12 @@
                         </x-adminlte-select>
                     </div>
                     <div class="col">
+
                         <x-adminlte-input type="date" name="fecha" label="Fecha" placeholder="Selecciona la fecha"
                             label-class="text-lightblue">
                             <x-slot name="prependSlot">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar text-lightblue"></i>
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fa fa-calendar"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -55,12 +58,12 @@
 
 
                 <div class="row">
-                    <div class="col col-md-6 col-sm-12">
+                    <div class="col col-sm-12">
                         <x-adminlte-input name="direccion" type="text" label="Direccion"
-                            placeholder="ingrese la direccion ..." label-class="text-lightblue">
+                            placeholder="Ingrese la dirección ..." label-class="text-lightblue">
                             <x-slot name="prependSlot">
-                                <div class="input-group-text">
-                                    <i class="fas fa-user text-lightblue"></i>
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-map-marked-alt"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -83,29 +86,28 @@
                             </x-adminlte-input>
                     </div>
                     <div class="col col-md-2 col-sm-6">
-                        <x-adminlte-input label="Cantidad" type="number" name="cantidad" id="cantidad">
-
-                        </x-adminlte-input>
+                        <label for="">Cantidad</label>
+                        <input type="number" id="cantidad" class="form-control">
                     </div>
                     <div class="col col-md-2 col-sm-6">
-                        <x-adminlte-input label="Precio" type="number" name="precio" id="precio" disabled=true>
+                        <label for="">Precio</label>
+                        <input type="number" id="precio" disabled="true" class="form-control">
 
-                        </x-adminlte-input>
                     </div>
                     <div class="col col-md-2 col-sm-6">
-                        <x-adminlte-input label="Importe" type="number" name="importe" id="importe" disabled=true>
+                        <label for="">Importe</label>
+                        <input type="text" id="importe" disabled="true" class="form-control">
 
-                        </x-adminlte-input>
                     </div>
                 </div>
 
 
 
 
-                <div class="row gx-5">
+                <div class="row gx-5 m-5">
                     <div class="col">
-                        <x-adminlte-button class="btn-flat " type="submit" label="Guardar Orden Venta" theme="primary"
-                            icon="fas fa-lg fa-save" id="brnAgregarOrden" />
+                        <x-adminlte-button class="btn-flat " type="submit" label="Guardar Orden de compra" theme="primary"
+                            icon="fas fa-lg fa-save" id="btnAgregarOrden" />
                     </div>
                     <div class="col">
                         <x-adminlte-button class="btn-flat " type="submit" label="Agregar Producto" theme="success"
@@ -120,23 +122,25 @@
                     <table class=" table">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Nombre Producto</th>
+                                <th scope="col">Producto</th>
                                 <th scope="col">Cantidad </th>
                                 <th scope="col">Precio Unitario</th>
                                 <th scope="col">Importe</th>
+                                <th scope="col">Borrar</th>
+
                             </tr>
                         </thead>
                         <tbody id="cuerpo_tabla"></tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3" class="text-center">Total</td>
+                                <td colspan="4" class="text-center">Total</td>
                                 <td>
 
                                     <input type="hidden" class="form-control" name="total" id="txtTotal"
                                         aria-describedby="helpId" placeholder="" />
 
                                     <input type="number" class="form-control" id="txtTotal_" aria-describedby="helpId"
-                                        placeholder="" disabled=true />
+                                        placeholder="00.0" disabled=true />
                                 </td>
                             </tr>
                         </tfoot>

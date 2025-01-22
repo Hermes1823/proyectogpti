@@ -7,6 +7,8 @@ use App\Models\OrdenCompra;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use Barryvdh\DomPDF\Facade\Pdf;
+use DB;
+use Exception;
 use Illuminate\Http\Request;
 
 class OrdenCompraController extends Controller
@@ -38,51 +40,61 @@ class OrdenCompraController extends Controller
         //  return $request;
         $validacion = $request->validate([
             'ruc' => 'required',
-            'fecha' => 'required', 
+            'fecha' => 'required',
             'direccion' => 'required',
             'total' => 'required',
-            
+            'detalles'=> 'required',
+
         ]);
 
-        $ordencompra = new OrdenCompra();
+        try{
+            DB::beginTransaction();
 
-        $ordencompra->ruc = $request->input('ruc');
-        $ordencompra->fecha = $request->input('fecha'); //este es un texarea 
-        $ordencompra->direccion = $request->input('direccion'); //este es un texarea 
-        $ordencompra->sub_total = 0;// este es un select 2 y agarra la variable desripcion de medida
-        $ordencompra->total = $request->input('total');// este es un select 2 y agarra la variable desripcion de marca
-        $ordencompra->save();
+            $ordencompra = new OrdenCompra();
+            $detalles= json_decode( $request->get('detalles'));
+            $ordencompra->ruc = $request->input('ruc');
+            $ordencompra->fecha = $request->input('fecha'); //este es un texarea
+            $ordencompra->direccion = $request->input('direccion'); //este es un texarea
+            $ordencompra->sub_total = 0;// este es un select 2 y agarra la variable desripcion de medida
+            $ordencompra->total = $request->input('total');// este es un select 2 y agarra la variable desripcion de marca
+            $ordencompra->save();
 
-        // Guardar los detalles
-        $id=$ordencompra->id_orden_compra;
-        $cantidades=$request->cantidades;
-        $precios=$request->precios;
-        $productos=$request->productos;
-        $detalle= null;
-        $producto=null;
-        for($i=0;$i<count($cantidades);$i++){
-            //Agrega los detalles de compra
-            $detalle= new DetalleCompra();
-            $detalle->id_orden_compra=$id;
-            $detalle->id_producto=$productos[$i];
-            $detalle->cantidad=$cantidades[$i];
-            $detalle->precio=$precios[$i];
-            $detalle->save();
-            //Aumenta existencia en almacen
+            // Guardar los detalles
+            $id=$ordencompra->id_orden_compra;
+            $detalle= null;
 
-            $producto= Producto::find($productos[$i]);
-            $producto->cantidad=$producto->cantidad+$cantidades[$i];
-            $producto->save();
+            foreach($detalles as $linea){
+                //Agrega los detalles de compra
+                $detalle= new DetalleCompra();
+                $detalle->id_orden_compra=$id;
+                $detalle->id_producto=$linea->codigo_producto;
+                $detalle->cantidad=$linea->cantidad;
+                $detalle->precio=$linea->precio;
+                $detalle->save();
+                //Aumenta existencia en almacen
 
+                // $producto= Producto::find($linea->codigo_producto);
+                // $producto->cantidad=$producto->cantidad+$linea->cantidad;
+                // $producto->save();
+
+            }
+
+
+            DB::commit();
+            session()->flash('message', 'registro exitoso');
+
+            // Redirigir a la vista categoria.create
+            return redirect()->route('ordencompra.create');
+
+
+        }catch(Exception $e){
+            DB::rollBack();
+            session()->flash('message', "Ocurrio un error inesperado:  $e");
+
+            return redirect()->route("ordencompra.create");
         }
 
-        //return back()->with('message','registro exitoso');
 
-        session()->flash('message', 'registro exitoso');
-
-        // Redirigir a la vista categoria.create
-        return redirect()->route('ordencompra.create');
-        //return $producto;
     }
 
     /**

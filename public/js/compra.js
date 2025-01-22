@@ -6,9 +6,9 @@ class DetallesVenta {
     importe = 0.0;
 
     constructor(codigo_producto, nombre_producto, cantidad, precio) {
-        this.cantidad = cantidad;
+        this.cantidad = parseInt( cantidad);
         this.nombre_producto = nombre_producto;
-        this.codigo_producto = codigo_producto;
+        this.codigo_producto =parseInt( codigo_producto);
         this.precio = precio;
         this.calcularImporte();
     }
@@ -52,17 +52,25 @@ class DetallesVenta {
 
 let detalles = [];
 let html;
-let tabla = document.getElementById("cuerpo_tabla");
-let listaProductos = document.getElementById("listaProductos");
-let btnAgregarProducto = document.getElementById("btnAgregarProducto");
-let btnAgregarOrden = document.getElementById("btnAgregarOrden");
-let inputCantidad = document.getElementById("cantidad");
-let txtTotal = document.getElementById("txtTotal");
-let txtTotal_ = document.getElementById("txtTotal_");
-
+const tabla = document.getElementById("cuerpo_tabla");
+const listaProductos = document.getElementById("listaProductos");
+const btnAgregarProducto = document.getElementById("btnAgregarProducto");
+const btnAgregarOrden = document.getElementById("btnAgregarOrden");
+const inputCantidad = document.getElementById("cantidad");
+const txtTotal = document.getElementById("txtTotal");
+const txtTotal_ = document.getElementById("txtTotal_");
+const inputDetalles= document.getElementById("detalles_venta");
+const form_venta=document.getElementById("formulario_venta");
+//------------
+btnAgregarOrden.setAttribute("disabled",true);
 // -----------Eventos----------------------------------
 btnAgregarProducto.addEventListener("click", (e) => {
     e.preventDefault();
+});
+btnAgregarOrden.addEventListener("click",(e)=>{
+
+    inputDetalles.value=JSON.stringify(detalles);
+
 });
 
 listaProductos.addEventListener("change", calcularPrecioImporte);
@@ -80,44 +88,39 @@ function rellenarTabla() {
     html = ``;
 
     if (insertarDatos(lineaVenta)) {
-        detalles.forEach((d) => {
-            html =
-                html +
-                `<tr>
-          
-            <td> 
-            <input name="productos[]" type="hidden" value="${d.codigo_producto}"> 
-            ${d.nombre_producto} 
-            </td>
-            <td> 
-                <input name="cantidades[]" type="hidden" class="form-control"  value="${d.cantidad}" > 
-                <input  type="number" class="form-control"  value="${d.cantidad}" disabled=true > 
-            </td>
-            <td>
-                <input name="precios[]" type="hidden" class="form-control" value="${d.precio} " >
-                <input  type="number" class="form-control" value="${d.precio}" disabled=true >
-            </td>
-            
-            <td> 
-                
-                <input  type="number" class="form-control" type="text" value="${d.importe}" disabled=true >
-            </td>
-            </tr>`;
-        });
+        const fila=document.createElement("tr");
+        fila.setAttribute("data-id",lineaVenta.codigo_producto);
+        const columna_borrar=document.createElement("td");
+        const icono_borrar=document.createElement("i");
+        icono_borrar.setAttribute("class","fas fa-trash ");
+        icono_borrar.addEventListener("click",borrarFila);
+     ////////////////
 
-        tabla.innerHTML = html;
+        columna_borrar.appendChild(icono_borrar);
+        const columnas=
+        `
+             <td>${lineaVenta.nombre_producto}</td>
+             <td>${lineaVenta.cantidad}</td>
+             <td>${lineaVenta.precio}</td>
+             <td>${lineaVenta.importe}</td>
+         `;
+         fila.innerHTML=columnas;
+         fila.appendChild(columna_borrar);
+         tabla.appendChild(fila);
+
+        ///
         limpiarDatos();
         calcularTotal();
         Swal.fire({
             title: "Exitoso",
-            text: "Producto agregado a la venta",
+            text: "Producto agregado a la compra",
             icon: "success",
             timer: 1500,
         });
     } else {
         Swal.fire({
             title: "Error",
-            text: "Ingresar una cantidad mayor a '0' al producto vendido",
+            text: "Ingresar una cantidad mayor a '0' al producto comprado",
             icon: "error",
             timer: 1500,
         });
@@ -140,6 +143,8 @@ function insertarDatos(lineaVenta) {
         );
         if (respuesta != -1) {
             detalles[respuesta] = lineaVenta;
+            tabla.querySelector(`tr[data-id="${lineaVenta.codigo_producto}"]`).remove();
+
         } else {
             detalles.push(lineaVenta);
         }
@@ -167,7 +172,29 @@ function actualizarPrecioImporte(event) {
 
     importe.value = precio.value * event.target.value;
 }
-// function borrarFila() {}
+function borrarFila(event) {
+    Swal.fire({
+        title:"¿Estas seguro de borrar este detalle?",
+        showDenyButton: true,
+        confirmButtonText: "ELIMINAR",
+        denyButtonText: `Cancelado`
+    }).then((result)=>{
+        if(result.isConfirmed){
+            Swal.fire("Producto borrado","","success");
+            const fila= event.target.closest("tr");
+            const id= fila.dataset.id;
+
+            fila.remove();
+            detalles=detalles.filter((d)=>{
+                return d.codigo_producto!=id;
+            });
+            calcularTotal();
+        }else{
+            Swal.fire("Borrado cancelado","","info");
+        }
+    });
+}
+
 
 // function borrarTabla() {}
 
@@ -184,4 +211,9 @@ function calcularTotal() {
     });
     txtTotal.value = total;
     txtTotal_.value = total;
+    if(detalles.length>0 && btnAgregarOrden.hasAttribute("disabled")){
+        btnAgregarOrden.removeAttribute("disabled");
+    }else if( detalles.length==0){
+        btnAgregarOrden.setAttribute("disabled",true);
+    }
 }
