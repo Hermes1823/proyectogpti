@@ -6,7 +6,9 @@ use App\Models\DetalleCompra;
 use App\Models\OrdenCompra;
 use App\Models\Producto;
 use App\Models\Proveedor;
+use App\Models\Test_reabesticimiento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ReabesticimientoController extends Controller
 {
@@ -20,6 +22,8 @@ class ReabesticimientoController extends Controller
 
 
     // return dd($request);
+    $hora_inicio=Carbon::parse(  $request->hora_inicio);
+
     $id_compra=$request->get("ordenCompra");
     $ordenCompra= OrdenCompra::find($id_compra);
     $ordenCompra->estado="RECIBIDA";
@@ -31,6 +35,16 @@ class ReabesticimientoController extends Controller
         $producto->cantidad=$producto->cantidad+$d->cantidad;
         $producto->save();
     }
+    $hora_final= Carbon::now();
+    $diferencia_tiempo=$hora_inicio->diff($hora_final)->format('%H:%I:%S');
+    $diferencia_segundos= $hora_inicio->diffInSeconds($hora_final);
+    $test_venta= new Test_reabesticimiento();
+    $test_venta->fecha= Carbon::now()->format('d/m/Y');
+    $test_venta->hora_inicio=$hora_inicio->format('H:i:s');
+    $test_venta->hora_final=$hora_final->format('H:i:s');
+    $test_venta->diferencia_tiempo=$diferencia_tiempo;
+    $test_venta->diferencia_segundo=$diferencia_segundos;
+    $test_venta->save();
 
     session()->flash('message', 'registro exitoso');
 

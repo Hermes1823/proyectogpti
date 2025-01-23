@@ -26,6 +26,7 @@
 
          <form action="{{route('reabesticimiento.store')}}" method="post" id="formulario">
             @csrf
+            <input type="hidden" name="hora_inicio" id="hora_inicio">
             <input type="hidden" name="estado" id="estado">
             <div class="row">
                 <div class="col col-md-6 col-sm-12">

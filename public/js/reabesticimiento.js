@@ -12,6 +12,11 @@ lstProveedores.addEventListener("change", mostrarOrdenes);
 lstOrden.addEventListener("change", mostrarDetalles);
 btnAprobar.addEventListener("click", aceptar);
 btnRechazar.addEventListener("click", rechazar);
+document.addEventListener("DOMContentLoaded", () => {
+    // Capturar la hora de inicio
+    const horaInicio = new Date();
+    document.getElementById("hora_inicio").value = horaInicio.toISOString();
+});
 //Funciones inicializadas
 deshabilitarBotones()
 
