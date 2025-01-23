@@ -20,6 +20,9 @@ use App\Models\Producto;
 use App\Http\Controllers\reporteaController;
 use App\Models\Reportea;
 
+use App\Http\Controllers\IndicatorController;
+use App\Http\Controllers\AAController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,4 +67,13 @@ Route::middleware([
     Route::get('reportea',[reporteaController::class, 'index'])->name('reportea');
     Route::resource('/ordenventa', OrdenVentaController::class)->names('ordenventa');
     Route::get('/grafico', [RgraficoController::class, 'index'])->middleware('can:rgrafico')->name('rgrafico');
+
+    Route::get('/salesIndicator', [IndicatorController::class, 'salesIndicator'])->name('indicator.sales');
+    Route::get('/exportSalesIndicator', [IndicatorController::class, 'exportSalesIndicator'])->name('indicator.sales.export');
+
+    Route::get('/aaSales', function () {
+        return view('sistema.aa.ventas');
+    });
+    
+    Route::post('/aaSales', [AAController::class, 'aaSales'])->name('aa.sales');
 });

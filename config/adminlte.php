@@ -342,8 +342,28 @@ return [
 
         ///
 
+        ['header' => 'Inteligencia de Negocio'],
 
-
+        [
+            'text' => 'Indicadores',
+            'icon' => 'fas fa-tachometer-alt',
+            'submenu' => [
+                [
+                    'text' => 'Ventas',
+                    'route' => 'indicator.sales',
+                ],
+            ],
+        ],
+        [
+            'text' => 'AA (Beta)',
+            'icon' => 'fas fa-hand-sparkles',
+            'submenu' => [
+                [
+                    'text' => 'Ventas',
+                    'route' => 'aa.sales',
+                ],
+            ],
+        ],
 
         ['header' => 'Gestion'],
 
