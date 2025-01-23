@@ -16,10 +16,11 @@ class OrdenCompra extends Model
         'fecha',
         'direccion',
         'sub_total',
-        'total'
+        'total',
+        'estado'
 
     ];
-    
+
     public $timestamps = false;
 
     // Relación con el modelo proveedor
@@ -27,7 +28,7 @@ class OrdenCompra extends Model
     {
         return $this->belongsTo(Proveedor::class, 'ruc');
     }
- 
+
     public function detalles(){
         return $this->hasMany(DetalleCompra::class,'id_orden_compra','id_orden_compra');
     }

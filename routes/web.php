@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReabesticimientoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CategoriaController;
@@ -74,6 +75,7 @@ Route::middleware([
     Route::get('/aaSales', function () {
         return view('sistema.aa.ventas');
     });
-    
+
     Route::post('/aaSales', [AAController::class, 'aaSales'])->name('aa.sales');
+    Route::resource("reabesticimiento",ReabesticimientoController::class);
 });

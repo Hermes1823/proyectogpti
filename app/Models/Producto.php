@@ -27,7 +27,7 @@ class Producto extends Model
     public function unidadMedida()
     {
         return $this->belongsTo(UnidadMedida::class, 'id_medida','id_medida');
-    } 
+    }
 
     // Relación con el modelo Marca
     public function marca()
@@ -43,7 +43,7 @@ class Producto extends Model
 
 
     // Relacion de muchos a muchos con repecto a Ordenes de compra
-    public function detalleCompra(){
+    public function detalles(){
         return $this->hasMany(DetalleCompra::class,'id_producto','id_producto');
     }
 
