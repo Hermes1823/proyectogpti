@@ -70,7 +70,10 @@ Route::middleware([
     Route::get('/grafico', [RgraficoController::class, 'index'])->middleware('can:rgrafico')->name('rgrafico');
 
     Route::get('/salesIndicator', [IndicatorController::class, 'salesIndicator'])->name('indicator.sales');
+    Route::get('/reabastecimientoIndicator', [IndicatorController::class, 'reabastecimientoIndicator'])->name('indicator.reabastecimiento');
+
     Route::get('/exportSalesIndicator', [IndicatorController::class, 'exportSalesIndicator'])->name('indicator.sales.export');
+    Route::get('/exportReabastecimientoIndicator', [IndicatorController::class, 'exportReabastecimientoIndicator'])->name('indicator.abastacimiento.export');
 
     Route::get('/aaSales', function () {
         return view('sistema.aa.ventas');

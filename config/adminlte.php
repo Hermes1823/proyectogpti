@@ -352,6 +352,10 @@ return [
                     'text' => 'Ventas',
                     'route' => 'indicator.sales',
                 ],
+                [
+                    'text' => 'Reabastecimiento',
+                    'route' => 'indicator.reabastecimiento',
+                ],
             ],
         ],
         [
