@@ -30,98 +30,56 @@
                 <input type="hidden" name="detalles" id="detalles_venta">
                 <input type="hidden" id="hora_inicio">
 
-                <div class="row">
-                    <div class="col">
-                        <x-adminlte-select name="dni" label="Cliente" label-class="text-lightblue"
-                            data-placeholder="Select an option..." id="listaClientes">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-gradient-info">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                            </x-slot>
-                            <option selected>Selecciona un cliente</option>
+                <span class="basic">Encabezado</span>
+
+                <div class="row" style="margin-top: 16px">
+                    <div class="col" >
+                        <select name="dni" id="listaClientes">
+                            <option value="" disabled selected hidden>Cliente</option>
                             @foreach ($clientes as $cliente)
                                 <option value="{{ $cliente->DNI }}">{{ $cliente->nombre }}</option>
                             @endforeach
-                        </x-adminlte-select>
+                        </select>
                     </div>
+
                     <div class="col">
-                        <x-adminlte-input type="date" name="fecha" label="Fecha" placeholder="Selecciona la fecha"
-                            label-class="text-lightblue">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-gradient-info">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input>
+                        <input type="date" name="fecha" id="fecha" placeholder="Fecha" required>
                     </div>
                 </div>
+                
+                <input type="text" name="direccion" id="direccion" placeholder="Dirección" required>
 
+                <span class="basic">Producto</span>
 
-                <div class="row">
-                    <div class="col  col-sm-12">
-                        <x-adminlte-input name="direccion" type="text" label="Direccion"
-                            placeholder="Ingrese la dirección ..." label-class="text-lightblue">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-gradient-info">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input>
+                <div class="row" style="margin-top: 16px">
+                    <div class="col-2">
+                        <input type="number" name="cantidad" id="cantidad" placeholder="Cantidad" required>
                     </div>
-
-                </div>
-
-
-
-                <div class="row">
-                    <div class="col col-md-6  col-sm-6">
-                        <x-adminlte-select label="Producto" name="producto" id="listaProductos"
-                            data-placeholder="Seleccione un producto">
-                            <option selected disabled>Seleccione un producto</option>
+                    <div class="col-6">
+                        <select name="producto" id="listaProductos">
+                            <option value="" disabled selected hidden>Producto</option>
                             @foreach ($productos as $p)
-                                <option value="{{ $p->id_producto }}" data-precio={{ $p->precio_compra }}>
-                                    {{ $p->descripcion }}</option>
+                                <option value="{{ $p->id_producto }}" data-precio={{ $p->precio_compra }}>{{ $p->descripcion }}</option>
                             @endforeach
-                            </x-adminlte-input>
+                        </select>
                     </div>
-                    <div class="col col-md-2 col-sm-6">
-                        <label for="">Cantidad</label>
-                        <input type="number" id="cantidad" class="form-control">
-
+                    <div class="col-2">
+                        <input class="d" type="number" name="precio" id="precio" placeholder="Precio" disabled required>
                     </div>
-                    <div class="col col-md-2 col-sm-6">
-                        <label for="">Precio</label>
-                        <input type="number" id="precio" disabled="true" class="form-control">
-
-                    </div>
-                    <div class="col col-md-2 col-sm-6">
-                        <label for="">Importe</label>
-                        <input type="text" id="importe" disabled="true" class="form-control">
-
+                    <div class="col-2">
+                        <input class="d" type="number" name="importe" id="importe" placeholder="Importe" disabled required>
                     </div>
                 </div>
 
-
-
-
-                <div class="row gx-5 my-2">
-                    <div class="col">
-                        <x-adminlte-button class="btn-flat " type="submit" label="Guardar Orden Venta" theme="primary"
-                            icon="fas fa-lg fa-save" id="brnAgregarOrden" />
-                    </div>
-                    <div class="col">
-                        <x-adminlte-button class="btn-flat " type="submit" label="Agregar Producto" theme="success"
-                            icon="fas fa-solid fa-plus" id="btnAgregarProducto" onclick="rellenarTabla()" />
-                    </div>
-
-
+                <div style="display: flex; justify-content: flex-end; flex-direction: row">   
+                    <button class="secondary"  id="btnAgregarProducto" type="submit" onclick="rellenarTabla()"><i class='fas fa-plus'></i> &nbsp Agregar</button>
                 </div>
+
                 <br>
                 <div class="container-fluid">
 
-                    <table class="table" >
-                        <thead class="thead-dark">
+                    <table class="table" style="background: #f9f9ff; text-align: center" >
+                        <thead style="background: #d6e3ff; color: #284777">
                             <tr>
                                 <th scope="col">Producto</th>
                                 <th scope="col">Cantidad </th>
@@ -131,7 +89,7 @@
                             </tr>
                         </thead>
                         <tbody id="cuerpo_tabla"></tbody>
-                        <tfoot>
+                        <tfoot style="color: #284777">
                             <tr>
                                 <td colspan="4" class="text-center">Total</td>
                                 <td>
@@ -147,6 +105,9 @@
                     </table>
                 </div>
 
+                <div style="display: flex; justify-content: flex-end; flex-direction: row">  
+                    <button class="primary" id="brnAgregarOrden" type="submit"><i class='fas fa-money-check'></i> &nbsp Guardar</button>
+                </div>
             </form>
         </div>
     </div>
@@ -155,6 +116,77 @@
 @section('css')
     {{-- Add here extra stylesheets --}}
     {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+
+    <style>
+        span.basic {
+            color: #415f91;
+            padding-bottom: 16px;
+        }
+
+        button {
+            height: 40px;
+            border: 0;
+            border-radius: 20px;
+            padding: 0px 24px;
+            font-size: 14px;
+            cursor: pointer
+        }
+
+        button.primary {
+            background-color: #415f91;
+            color: white;
+        }
+
+        button.secondary {
+            background-color: transparent;
+            color:  #415f91;
+            border: 1px solid #415f91;
+        }
+
+        input {
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid #777477;
+            border-radius: 4px;
+            padding: 15px;
+            font-size: 16px;
+            color: #777477
+        }
+
+        input.d {
+            background: #e2e2e9
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #415f91;
+            padding: 14px;
+            color: #39383a
+        }
+
+        /* Select */
+
+        select {
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid #777477;
+            border-radius: 4px;
+            padding: 17px 15px;
+            font-size: 16px;
+            color: #777477
+        }
+
+        select:focus {
+            outline: none;
+            border: 2px solid #415f91;
+            padding: 16px 14px;
+            color: #39383a
+        }
+    </style>
 @stop
 
 @section('js')
