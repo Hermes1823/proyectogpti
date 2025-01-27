@@ -12,6 +12,7 @@ class CategoriaSeeder extends Seeder
      */
     public function run(): void
     {
+        Categoria::create(["descripcion"=>"SIN CATEGORIA"]);
         Categoria::create(['descripcion'=>'Verduras']);
         Categoria::create(['descripcion'=>'Lacteos']);
         Categoria::create(['descripcion'=>'Tuberculos']);

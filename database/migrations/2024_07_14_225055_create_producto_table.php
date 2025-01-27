@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id('id_producto');
             $table->string('descripcion',60);
             $table->text('imagen');
-            $table->unsignedBigInteger('id_medida');
-            $table->unsignedBigInteger('id_marca');
-            $table->unsignedBigInteger('id_categoria');
+            $table->unsignedBigInteger('id_medida')->nullable();
+            $table->unsignedBigInteger('id_marca')->nullable();
+            $table->unsignedBigInteger('id_categoria')->nullable();
             $table->decimal('precio_venta');
             $table->decimal('precio_compra');
             $table->bigInteger('cantidad');

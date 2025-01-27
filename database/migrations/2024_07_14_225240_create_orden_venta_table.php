@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_orden_venta');
             $table->date('fecha');
             $table->string('direccion');
-            $table->string('dni');
+            $table->string('dni')->nullable();
             $table->decimal('total');
 
             $table->foreign('dni')->references('dni')->on('cliente');
