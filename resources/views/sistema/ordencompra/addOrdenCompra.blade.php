@@ -24,6 +24,9 @@
 
     <div class="card">
         <div class="card-body">
+
+
+
             <form action="{{ route('ordencompra.store') }}" method="POST">
                 @csrf
                 {{-- proveedor --}}
