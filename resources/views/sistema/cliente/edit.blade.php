@@ -26,6 +26,7 @@
         <div class="card-body">
             <form action="{{ route('cliente.update', $cliente->DNI) }}" method="POST">
                 @csrf
+                @method("PUT")
                 {{-- With prepend slot --}}
                 <div class="row">
                     <div class="col">
@@ -38,8 +39,8 @@
                             </x-slot>
                         </x-adminlte-input>
                     </div>
-                    
-                  
+
+
                         <div class="col"><x-adminlte-input type="text" name="numero" label="N° Celular" placeholder="{{ $cliente->numero }}"
                             label-class="text-lightblue"  value="{{ old('numero') }}">
                             <x-slot name="prependSlot">
@@ -48,12 +49,12 @@
                                 </div>
                             </x-slot>
                         </x-adminlte-input></div>
-                        
-                   
+
+
                 </div>
                 <div class="row">
                     <div class="col">
-                        
+
                 <x-adminlte-input type="text" name="nombre" label="Nombre" placeholder="{{ $cliente->nombre }}"
                     label-class="text-lightblue" value="{{ old('nombre') }}">
                     <x-slot name="prependSlot">
@@ -75,9 +76,9 @@
                         </x-adminlte-input>
                     </div>
                 </div>
-               
 
-                
+
+
 
 
                 <x-adminlte-button class="btn-flat" type="submit" label="Actualizar" theme="success"
