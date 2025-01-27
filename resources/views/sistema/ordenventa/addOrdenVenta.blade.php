@@ -46,7 +46,7 @@
                         <input type="date" name="fecha" id="fecha" placeholder="Fecha" required>
                     </div>
                 </div>
-                
+
                 <input type="text" name="direccion" id="direccion" placeholder="Dirección" required>
 
                 <span class="basic">Producto</span>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <div style="display: flex; justify-content: flex-end; flex-direction: row">   
+                <div style="display: flex; justify-content: flex-end; flex-direction: row">
                     <button class="secondary"  id="btnAgregarProducto" type="submit" onclick="rellenarTabla()"><i class='fas fa-plus'></i> &nbsp Agregar</button>
                 </div>
 
@@ -105,7 +105,7 @@
                     </table>
                 </div>
 
-                <div style="display: flex; justify-content: flex-end; flex-direction: row">  
+                <div style="display: flex; justify-content: flex-end; flex-direction: row">
                     <button class="primary" id="brnAgregarOrden" type="submit"><i class='fas fa-money-check'></i> &nbsp Guardar</button>
                 </div>
             </form>
@@ -190,5 +190,8 @@
 @stop
 
 @section('js')
+<script>
+    const  PRODUCTOS=@json($productos);
+</script>
     <script src="{{ asset('js/venta.js') }}"></script>
 @stop
