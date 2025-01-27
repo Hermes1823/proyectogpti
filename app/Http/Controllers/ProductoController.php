@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
 use Dompdf\Options;
 use Dompdf\Dompdf;
 //use Barryvdh\DomPDF\Facade as PDF;
@@ -10,6 +11,7 @@ use App\Models\Producto;
 use App\Models\UnidadMedida;
 use App\Models\Marca;
 use App\Models\Categoria;
+use Storage;
 
 
 
@@ -58,26 +60,45 @@ class ProductoController extends Controller
             'cantidad' => 'required|integer',
             'id_categoria' => 'required|exists:categoria,id_categoria',
         ]);
+try{
+    DB::beginTransaction();
+    $producto = new Producto();
 
-        $producto = new Producto();
+    $producto->descripcion = $request->input('descripcion');
+    //
+    $file= $request->file("imagen");
+    $ruta= Storage::disk("public")->put("imagenes",$file);
+    $producto->imagen=$ruta;
+    //
 
-        $producto->descripcion = $request->input('descripcion');
-        $producto->imagen = $request->input('imagen'); //este es un texarea 
-        $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
-        $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
-        $producto->precio_venta = $request->input('precio_venta');
-        $producto->precio_compra = $request->input('precio_compra');
-        $producto->cantidad = $request->input('cantidad');
-        $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
 
-        $producto->save();
 
-        //return back()->with('message','registro exitoso');
+    $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
+    $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
+    $producto->precio_venta = $request->input('precio_venta');
+    $producto->precio_compra = $request->input('precio_compra');
+    $producto->cantidad = $request->input('cantidad');
+    $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
 
-        session()->flash('message', 'registro exitoso');
+    $producto->save();
+
+    DB::commit();
+    session()->flash('message', 'registro exitoso');
 
         // Redirigir a la vista categoria.create
         return redirect()->route('producto.create');
+}catch(\Exception $e){
+    DB::rollBack();
+    session()->flash('message', 'error');
+
+    // Redirigir a la vista categoria.create
+    return redirect()->route('producto.create');
+}
+
+
+        //return back()->with('message','registro exitoso');
+
+
         //return $producto;
     }
 
@@ -153,18 +174,18 @@ class ProductoController extends Controller
     public function pdf()
     {
 
-        
-           
+
+
     // Obtener los datos necesarios para el reporte
     $productos = Producto::all();
-    
+
 
     return view('sistema.producto.pdf');
 
     //$unidades = UnidadMedida::all();
     //$marcas = Marca::all();
     //$categorias = Categoria::all();
-    
+
     //dd($productos, $unidades, $marcas, $categorias);
 
     // Configurar las opciones de Dompdf
