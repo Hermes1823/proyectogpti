@@ -14,104 +14,108 @@
         <div class="card-body">
             <form action="{{ route('producto.update', $producto->id_producto) }}" method="POST">
                 @csrf
-                @method('PUT') 
-                {{-- With prepend slot --}}
-                <x-adminlte-input type="text" name="descripcion" label="Nombre" placeholder="digite la descripcion"
-                    label-class="text-lightblue" value="{{ $producto->descripcion }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fa fa-audio-description text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
+                @method('PUT')
+                <div class="row">
+                    <div class="col">
+                        <x-adminlte-input type="text" name="descripcion" label="Nombre"
+                            placeholder="digite la descripcion" label-class="text-lightblue"
+                            value="{{ old('descripcion') }}">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-audio-description"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input>
+                    </div>
+                    <div class="col">
+                        <x-adminlte-select2 name="id_categoria" label="Categoria" label-class="text-lightblue"
+                            data-placeholder="Select an option...">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-car-side"></i>
+                                </div>
+                            </x-slot>
+                            @foreach ($categorias as $categoria)
+                                <option value="{{ $categoria->id_categoria }}">{{ $categoria->descripcion }}</option>
+                            @endforeach
+                        </x-adminlte-select2>
 
-                {{-- Categoria --}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <x-adminlte-select2 name="id_marca" label="Marca" label-class="text-lightblue">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-car-side"></i>
+                                </div>
+                            </x-slot>
+                            @foreach ($marcas as $marca)
+                                <option value="{{ $marca->id_marca }}">{{ $marca->descripcion }}</option>
+                            @endforeach
+                        </x-adminlte-select2>
+                    </div>
+                    <div class="col">
+                        {{-- IMAGEN --}}
+                        <label for="" class="text-center">Imagen</label>
+                        <img src="{{ asset('img/defaul_img.png') }}" class="img-thumbnail mx-auto d-block"
+                            alt="{{ asset('img/defaul_img.png') }}" id="vs_img">
+                        <input type="file" class="form-control-file" id="imagen" name="imagen">
 
-                <x-adminlte-select2 name="id_categoria" label="Categoria" label-class="text-lightblue" igroup-size="lg"
-                    data-placeholder="Select an option...">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-gradient-info">
-                            <i class="fas fa-car-side"></i>
-                        </div>
-                    </x-slot>
-                    @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->id_categoria }}">{{ $categoria->descripcion }}</option>
-                    @endforeach
-                </x-adminlte-select2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <x-adminlte-input type="number" name="precio_venta" label="Precio de venta"
+                            placeholder="Ingresa el precio de venta" label-class="text-lightblue"
+                            value="{{ old('precio_venta') }}" step="0.01" min="0">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input>
+                    </div>
+                    <div class="col">
+                        <x-adminlte-input type="number" name="precio_compra" label="precio de compra"
+                            placeholder="Ingresa el precio de compra" label-class="text-lightblue"
+                            value="{{ old('precio_compra') }}" step="0.01" min="0">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input>
 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
 
-                {{-- marca --}}
+                        <x-adminlte-input name="cantidad" label="cantidad" placeholder="cantidad" type="number" min=1
+                            label-class="text-lightblue">
+                            <x-slot name="appendSlot">
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-hashtag"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input>
+                    </div>
+                    <div class="col">
+                        <x-adminlte-select2 name="id_medida" label="Unidad de Medida" label-class="text-lightblue"
+                            data-placeholder="Select an option...">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-gradient-info">
+                                    <i class="fas fa-car-side"></i>
+                                </div>
+                            </x-slot>
+                            @foreach ($unidades as $unidad)
+                                <option value="{{ $unidad->id_medida }}">{{ $unidad->descripcion }}</option>
+                            @endforeach
+                        </x-adminlte-select2>
+                    </div>
+                </div>
 
-                <x-adminlte-select2 name="id_marca" label="Marca" label-class="text-lightblue" igroup-size="lg"
-                    data-placeholder="Select an option...">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-gradient-info">
-                            <i class="fas fa-car-side"></i>
-                        </div>
-                    </x-slot>
-                    @foreach ($marcas as $marca)
-                        <option value="{{ $marca->id_marca }}">{{ $marca->descripcion }}</option>
-                    @endforeach
-                </x-adminlte-select2>
-                {{-- imagen --}}
-
-                <x-adminlte-textarea name="imagen" label="imagen" rows=5 label-class="text-lightblue" igroup-size="sm"
-                    placeholder="inserte imagen..." value="{{ $producto->imagen }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-dark">
-                            <i class="fas fa-lg fa-file-alt text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-textarea>
-
-                {{-- precio_venta --}}
-
-                <x-adminlte-input type="number" name="precio_venta" label="Precio de venta"
-                    placeholder="Ingresa el precio de venta" label-class="text-lightblue"
-                    value="{{ $producto->precio_venta }}" step="0.01" min="0">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-dollar-sign text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-
-                {{-- precio_compra --}}
-
-                <x-adminlte-input type="number" name="precio_compra" label="precio de compra"
-                    placeholder="Ingresa el precio de compra" label-class="text-lightblue"
-                    value="{{ $producto->precio_compra }}" step="0.01" min="0">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-dollar-sign text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-
-
-
-                {{-- cantidad --}}
-
-                <x-adminlte-input name="cantidad" label="cantidad" placeholder="cantidad" type="number" igroup-size="sm"
-                    min=1 max=10 label-class="text-lightblue" value="{{ $producto->cantidad }}">
-                    <x-slot name="appendSlot">
-                        <div class="input-group-text bg-dark">
-                            <i class="fas fa-hashtag"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input>
-                {{-- medida --}}
-                <x-adminlte-select2 name="id_medida" label="Unidad de Medida" label-class="text-lightblue" igroup-size="lg"
-                    data-placeholder="Select an option...">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-gradient-info">
-                            <i class="fas fa-car-side"></i>
-                        </div>
-                    </x-slot>
-                    @foreach ($unidades as $unidad)
-                        <option value="{{ $unidad->id_medida }}">{{ $unidad->descripcion }}</option>
-                    @endforeach
-                </x-adminlte-select2>
 
 
                 <x-adminlte-button class="btn-flat" type="submit" label="guardar" theme="primary"

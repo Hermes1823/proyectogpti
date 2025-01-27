@@ -9,7 +9,7 @@
 @section('content')
     <p>Bienvenidos a la lista de prouctos</p>
 
-    
+
 
     <div class="card">
 
@@ -33,11 +33,11 @@
                     'Precio de venta',
                     'Precio de compra',
                     'Cantidad',
-                    'Categoria', 
+                    'Categoria',
                     ['label' => 'Actions', 'no-export' => true, 'width' => 10],
                 ];
 
-                
+
                 $btnEdit = '';
                 $btnPDF = '';
                 $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
@@ -51,7 +51,7 @@
                     'language' => [
                         'url' => '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
                     ],
-                ]; 
+                ];
 
             @endphp
 
@@ -61,7 +61,7 @@
                     <tr>
                         <td>{{ $producto->id_producto}}</td>
                         <td>{{ $producto->descripcion}}</td>
-                        <td>{{ $producto->imagen}}</td>
+                        <td><img src="{{Storage::url( $producto->imagen)}}" alt="{{$producto->imagen}}" class="img-fluid"></td>
                         <td>{{ $producto->unidadMedida->descripcion}}</td>
                         <td>{{ $producto->marca->descripcion}}</td>
                         <td>{{ $producto->precio_venta}}</td>
@@ -69,12 +69,12 @@
                         <td>{{ $producto->cantidad}}</td>
                         <td>{{ $producto->categoria->descripcion}}</td>
 
-                        
+
                         <td>
                             @can('producto.edit')
                             <a href={{route('producto.edit', $producto)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>  
+                            </a>
                             @endcan
                             @can('producto.destroy')
                             <form style="display: inline" action="{{ route('producto.destroy', $producto->id_producto) }}"
@@ -82,13 +82,13 @@
                                 @csrf
                                 @method('delete')
                                 {!! $btnDelete !!}
-                            </form>    
+                            </form>
                             @endcan
-                            
-                            
 
-                            
-                            
+
+
+
+
 
                         </td>
                     </tr>
@@ -105,13 +105,13 @@
 @stop
 
 @section('js')
- 
+
 
     <script>
         $(document).ready(function() {
             $('.formEliminar').submit(function(e) {
                 e.preventDefault();
-                //a continuación se pega el código de la alerta 
+                //a continuación se pega el código de la alerta
 
                 Swal.fire({
                     title: "¿Estás seguro?",

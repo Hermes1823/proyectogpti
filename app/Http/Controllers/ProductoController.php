@@ -29,7 +29,7 @@ class ProductoController extends Controller
     }
     public function index()
     {
-        $productos=Producto::all();
+        $productos = Producto::all();
 
         return view('sistema.producto.listProducto', compact('productos'));
     }
@@ -60,46 +60,38 @@ class ProductoController extends Controller
             'cantidad' => 'required|integer',
             'id_categoria' => 'required|exists:categoria,id_categoria',
         ]);
-try{
-    DB::beginTransaction();
-    $producto = new Producto();
+        try {
+            DB::beginTransaction();
+            $producto = new Producto();
 
-    $producto->descripcion = $request->input('descripcion');
-    //
-    $file= $request->file("imagen");
-    $ruta= Storage::disk("public")->put("imagenes",$file);
-    $producto->imagen=$ruta;
-    //
+            $producto->descripcion = $request->input('descripcion');
+            //
+            $file = $request->file("imagen");
+            $ruta = Storage::disk("public")->put("imagenes", $file);
+            $producto->imagen = $ruta;
+            //
+            $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
+            $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
+            $producto->precio_venta = $request->input('precio_venta');
+            $producto->precio_compra = $request->input('precio_compra');
+            $producto->cantidad = $request->input('cantidad');
+            $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
 
+            $producto->save();
 
+            DB::commit();
+            session()->flash('message', 'registro exitoso');
 
-    $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
-    $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
-    $producto->precio_venta = $request->input('precio_venta');
-    $producto->precio_compra = $request->input('precio_compra');
-    $producto->cantidad = $request->input('cantidad');
-    $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
+            // Redirigir a la vista categoria.create
+            return redirect()->route('producto.create');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('message', 'error');
 
-    $producto->save();
+            // Redirigir a la vista categoria.create
+            return redirect()->route('producto.create');
+        }
 
-    DB::commit();
-    session()->flash('message', 'registro exitoso');
-
-        // Redirigir a la vista categoria.create
-        return redirect()->route('producto.create');
-}catch(\Exception $e){
-    DB::rollBack();
-    session()->flash('message', 'error');
-
-    // Redirigir a la vista categoria.create
-    return redirect()->route('producto.create');
-}
-
-
-        //return back()->with('message','registro exitoso');
-
-
-        //return $producto;
     }
 
     /**
@@ -115,7 +107,7 @@ try{
      */
     public function edit(string $id)
     {
-        $producto=Producto::find($id);
+        $producto = Producto::find($id);
         $unidades = UnidadMedida::all();
         $marcas = Marca::all();
         $categorias = Categoria::all();
@@ -146,19 +138,22 @@ try{
 
         // Actualizar los campos del producto con los nuevos valores del formulario
         $producto->descripcion = $request->input('descripcion');
-        $producto->imagen = $request->input('imagen');
-        $producto->id_medida = $request->input('id_medida');
-        $producto->id_marca = $request->input('id_marca');
+        //
+        $file = $request->file("imagen");
+        $ruta = Storage::disk("public")->put("imagenes", $file);
+        $producto->imagen = $ruta;
+        //
+        $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
+        $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
         $producto->precio_venta = $request->input('precio_venta');
         $producto->precio_compra = $request->input('precio_compra');
         $producto->cantidad = $request->input('cantidad');
-        $producto->id_categoria = $request->input('id_categoria');
+        $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
 
-        // Guardar los cambios en la base de datos
         $producto->save();
 
         // Redireccionar a la vista de listado de productos o a donde sea necesario
-        return back()->with('message','Actualizado correctamente');
+        return back()->with('message', 'Actualizado correctamente');
     }
 
     /**
@@ -166,7 +161,7 @@ try{
      */
     public function destroy(string $id)
     {
-        $producto=Producto::find($id);
+        $producto = Producto::find($id);
         $producto->delete();
         return back();
     }
@@ -176,36 +171,36 @@ try{
 
 
 
-    // Obtener los datos necesarios para el reporte
-    $productos = Producto::all();
+        // Obtener los datos necesarios para el reporte
+        $productos = Producto::all();
 
 
-    return view('sistema.producto.pdf');
+        return view('sistema.producto.pdf');
 
-    //$unidades = UnidadMedida::all();
-    //$marcas = Marca::all();
-    //$categorias = Categoria::all();
+        //$unidades = UnidadMedida::all();
+        //$marcas = Marca::all();
+        //$categorias = Categoria::all();
 
-    //dd($productos, $unidades, $marcas, $categorias);
+        //dd($productos, $unidades, $marcas, $categorias);
 
-    // Configurar las opciones de Dompdf
-    //**$options = new Options();
-   //** */ $options->set('defaultFont', 'Arial');
+        // Configurar las opciones de Dompdf
+        //**$options = new Options();
+        //** */ $options->set('defaultFont', 'Arial');
 
-    // Crear una instancia de Dompdf
-    //**$dompdf = new Dompdf($options);
+        // Crear una instancia de Dompdf
+        //**$dompdf = new Dompdf($options);
 
-    // Cargar la vista promocion.pdf en una variable
-    //$html = view('sistema.producto.pdf', compact('productos'))->render();
+        // Cargar la vista promocion.pdf en una variable
+        //$html = view('sistema.producto.pdf', compact('productos'))->render();
 
-    // Cargar el HTML en Dompdf
-    //**$dompdf->loadHtml($html);
+        // Cargar el HTML en Dompdf
+        //**$dompdf->loadHtml($html);
 
-    // Renderizar el PDF
-    //**$dompdf->render();
+        // Renderizar el PDF
+        //**$dompdf->render();
 
-    // Devolver la respuesta con el PDF
-    //**return $dompdf->stream('sistema.producto.pdf');
+        // Devolver la respuesta con el PDF
+        //**return $dompdf->stream('sistema.producto.pdf');
 
 
     }
