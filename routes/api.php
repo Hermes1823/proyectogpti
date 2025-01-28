@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GroupRestController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ReabesticimientoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // En routes/api.php para rutas API
 
-
+Route::post("/busqueda-producto",[ProductoController::class,"busquedaProducto"])->name("busquedaProducto");
 Route::get('/graficojson1', [GroupRestController::class, 'totalProductosPorCategoria']);
 Route::get('search_orden_proveedor/{id}', [ReabesticimientoController::class,'search_order_provee'])->name("reabastecimiento.proveedor_orden");
 Route::get('details_orden/{id}', [ReabesticimientoController::class,'detalles_orden'])->name("reabastecimiento.detalles_orden");

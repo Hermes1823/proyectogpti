@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Test_busqueda;
 use DB;
 use Dompdf\Options;
 use Dompdf\Dompdf;
@@ -13,6 +14,7 @@ use App\Models\Marca;
 use App\Models\Categoria;
 use Storage;
 
+use Illuminate\Support\Carbon;
 
 
 class ProductoController extends Controller
@@ -164,6 +166,28 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         $producto->delete();
         return back();
+    }
+
+    public function busquedaProducto(Request $request){
+try{
+    DB::beginTransaction();
+    $hora_inicio=Carbon::parse(  $request->hora_inicio);
+    $hora_final= Carbon::now();
+    $diferencia_tiempo=$hora_inicio->diff($hora_final)->format('%H:%I:%S');
+    $diferencia_segundos= $hora_inicio->diffInSeconds($hora_final);
+    $test_venta= new Test_busqueda();
+    $test_venta->fecha= Carbon::now()->format('d/m/Y');
+    $test_venta->hora_inicio=$hora_inicio->format('H:i:s');
+    $test_venta->hora_final=$hora_final->format('H:i:s');
+    $test_venta->diferencia_tiempo=$diferencia_tiempo;
+    $test_venta->diferencia_segundo=$diferencia_segundos;
+    $test_venta->save();
+    DB::commit();
+    return response()->json(["message"=>"OK"],200);
+}catch(\Exception $e){
+DB::rollBack();
+    return response()->json(["message"=>$e->getMessage()],500);
+}
     }
 
     public function pdf()
