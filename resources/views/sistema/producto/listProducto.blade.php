@@ -28,12 +28,12 @@
                     'ID',
                     'Descripcion',
                     'imagen',
-                    'Unidad',
-                    'Marca',
+                    // 'Unidad',
+                    // 'Marca',
                     'Precio de venta',
                     'Precio de compra',
-                    'Cantidad',
-                    'Categoria',
+                    // 'Cantidad',
+                    // 'Categoria',
                     ['label' => 'Actions', 'no-export' => true, 'width' => 10],
                 ];
 
@@ -61,16 +61,21 @@
                     <tr>
                         <td>{{ $producto->id_producto}}</td>
                         <td>{{ $producto->descripcion}}</td>
-                        <td><img src="{{Storage::url( $producto->imagen)}}" alt="{{$producto->imagen}}" class="img-fluid"></td>
-                        <td>{{ $producto->unidadMedida->descripcion}}</td>
-                        <td>{{ $producto->marca->descripcion}}</td>
+                        <td><img src="{{Storage::url( $producto->imagen)}}" alt="{{$producto->imagen}}" style="width: 128px; aspect-ratio: 1 / 1; border-radius: 32px;  object-fit: cover;"></td>
+                        {{-- <td>{{ $producto->unidadMedida->descripcion}}</td>
+                        <td>{{ $producto->marca->descripcion}}</td> --}}
                         <td>{{ $producto->precio_venta}}</td>
                         <td>{{ $producto->precio_compra}}</td>
-                        <td>{{ $producto->cantidad}}</td>
-                        <td>{{ $producto->categoria->descripcion}}</td>
+                        {{-- <td>{{ $producto->cantidad}}</td>
+                        <td>{{ $producto->categoria->descripcion}}</td> --}}
 
 
                         <td>
+
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalProducto{{ $producto->id_producto }}">
+                                <i class="fa fa-lg fa-fw fa-info-circle"></i>
+                            </button>
+
                             @can('producto.edit')
                             <a href={{route('producto.edit', $producto)}} class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
@@ -92,6 +97,29 @@
 
                         </td>
                     </tr>
+
+                    <div class="modal fade" id="modalProducto{{ $producto->id_producto }}" tabindex="-1" role="dialog" aria-labelledby="modalProductoLabel{{ $producto->id_producto }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="modalProductoLabel{{ $producto->id_producto }}">{{ $producto->descripcion }}</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{{Storage::url( $producto->imagen)}}" alt="Imagen" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 32px; object-fit: cover;">
+                                <p><strong>Unidad:</strong> {{ $producto->unidadMedida->descripcion }}</p>
+                                <p><strong>Marca:</strong> {{ $producto->marca->descripcion }}</p>
+                                <p><strong>Precio de Venta:</strong> {{ $producto->precio_venta }}</p>
+                                <p><strong>Precio de Compra:</strong> {{ $producto->precio_compra }}</p>
+                                <p><strong>Cantidad:</strong> {{ $producto->cantidad }}</p>
+                                <p><strong>Categoría:</strong> {{ $producto->categoria->descripcion }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                 @endforeach
             </x-adminlte-datatable>
 
