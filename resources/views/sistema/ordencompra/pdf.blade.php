@@ -34,7 +34,7 @@
 <body>
     <div class="container-fluid">
         <div class="row-fluid">
-            
+
             <div class="col-5" style="display: inline-block;width:300px; left:0;">
                 <strong>EMPRESA:{{ $ordencompra->rproveedor->razon_social }}</strong> <br>
                 <strong>RUC:{{ $ordencompra->rproveedor->ruc }} </strong> <br>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="row-fluid">
-           
+
             <div class="col" style="display: inline-block;width:220px; left:300px;bottom:50px">
                 <strong>Fecha: {{ $ordencompra->fecha }}</strong >
             </div>
@@ -73,18 +73,18 @@
                   @foreach ($ordencompra->detalles as $d)
                       <tr>
                         <td>{{ $d->cantidad }}</td>
-                        <td>{{ $d->producto->unidadMedida->descripcion }}</td>
+                        <td>{{ $d->producto->unidadMedida?->descripcion ?? "Sin unidad de medida" }}</td>
                         <td>{{$d->producto->descripcion  }}</td>
-                        <td>{{ $d->producto->marca->descripcion  }}</td>
-                        <td>{{ $d->producto->categoria->descripcion }}</td>
+                        <td>{{ $d->producto->marca?->descripcion ?? "Sin marca"  }}</td>
+                        <td>{{ $d->producto->categoria?->descripcion ?? "Sin categoria" }}</td>
                         <td>{{ $d->precio }}</td>
                         <td>{{ $d->precio* $d->cantidad }}</td>
                       </tr>
                   @endforeach
                 </tbody>
                 <tfoot style="font-weight:100">
-                   
-                    
+
+
                     <tr>
                         <td colspan="6"  style="width: 50px; text-align:right;border:0;margin:0;padding:0px">Total</td>
                         <td style="border:0">{{ $ordencompra->total }}</td>
@@ -96,6 +96,6 @@
             <footer> Comercial Anderson</footer>
         </div>
     </div>
-    
+
 </body>
 </html>
