@@ -28,7 +28,7 @@
                 @csrf
                 {{-- proveedor --}}
                 <input type="hidden" name="detalles" id="detalles_venta">
-                <input type="hidden" id="hora_inicio">
+                <input type="hidden" id="hora_inicio" name="hora_inicio">
 
                 <span class="basic">Encabezado</span>
 

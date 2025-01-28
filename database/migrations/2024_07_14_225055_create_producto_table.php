@@ -23,9 +23,9 @@ return new class extends Migration
             $table->decimal('precio_compra');
             $table->bigInteger('cantidad');
 
-            $table->foreign('id_medida')->references('id_medida')->on('unidad_medida');
-            $table->foreign('id_marca')->references('id_marca')->on('marca');
-            $table->foreign('id_categoria')->references('id_categoria')->on('categoria');
+            $table->foreign('id_medida')->references('id_medida')->on('unidad_medida')->onDelete("set null");
+            $table->foreign('id_marca')->references('id_marca')->on('marca')->onDelete("set null");
+            $table->foreign('id_categoria')->references('id_categoria')->on('categoria')->onDelete("set null");
 
         });
     }

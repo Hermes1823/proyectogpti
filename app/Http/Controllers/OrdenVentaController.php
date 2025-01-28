@@ -42,6 +42,8 @@ class OrdenVentaController extends Controller
      */
     public function store(Request $request)
     {
+
+        // return $request;
          //  return $request;
          $validacion = $request->validate([
             'dni' => 'required',

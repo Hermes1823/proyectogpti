@@ -23,14 +23,17 @@ class ReabesticimientoController extends Controller
 
 
     // return dd($request);
+ try{
+    DB::beginTransaction();
     $hora_inicio=Carbon::parse(  $request->hora_inicio);
 
-    $id_compra=$request->get("ordenCompra");
+    $id_compra=$request->ordenCompra;
     $ordenCompra= OrdenCompra::find($id_compra);
     $ordenCompra->estado="RECIBIDA";
     $ordenCompra->save();
 
-    $detalles= DetalleCompra::where("id_orden_compra","=",$id_compra);
+    $detalles= DetalleCompra::where("id_orden_compra","=",$id_compra)->get();
+    // return $detalles;
     foreach($detalles as $d){
         $producto= Producto::find($d->id_producto);
         $producto->cantidad=$producto->cantidad+$d->cantidad;
@@ -46,10 +49,15 @@ class ReabesticimientoController extends Controller
     $test_venta->diferencia_tiempo=$diferencia_tiempo;
     $test_venta->diferencia_segundo=$diferencia_segundos;
     $test_venta->save();
-
+    DB::commit();
     session()->flash('message', 'registro exitoso');
 
     return redirect()->route('reabesticimiento.index');
+ }catch(\Exception $e){
+    DB::rollBack();
+    session()->flash('message', 'error');
+    return redirect()->route('reabesticimiento.index');
+ }
    }
 
    public function show($id){

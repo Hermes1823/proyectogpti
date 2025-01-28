@@ -124,15 +124,15 @@ function rellenarTabla() {
              ${lineaVenta.nombre_producto}
              </td>
              <td>
-             <input type="number" name="cnt" value="${lineaVenta.cantidad}" class="form-control" min="0" >
+             <input type="number" name="cnt" step="any" value="${lineaVenta.cantidad}" class="form-control" min="0" >
 
              </td>
              <td>
-             <input type="number" name="pu" class="form-control" min="0" value="${lineaVenta.precio}">
+             <input type="number" name="pu" step="any" class="form-control" min="0" value="${lineaVenta.precio}">
 
              </td>
              <td>
-             <input type="number" name="imp" class="form-control" min="0" disabled value="${lineaVenta.importe}">
+             <input type="number" name="imp" step="any" class="form-control" min="0" disabled value="${lineaVenta.importe}">
 
              </td>
          `;

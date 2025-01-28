@@ -20,6 +20,17 @@
             }, 2000); // 2000 milisegundos = 2 segundos
         </script>
     @endif
+    @if (session('message') == 'error')
+    <x-adminlte-alert class="bg-teal text-uppercase" icon="fa fa-lg fa-thumbs-up" title="Incorrecto" dismissable>
+        Registro Erroneo
+    </x-adminlte-alert>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "{{ route('producto.index') }}";
+        }, 2000); // 2000 milisegundos = 2 segundos
+    </script>
+@endif
 
     <div class="card m-3">
         <div class="card-body">
