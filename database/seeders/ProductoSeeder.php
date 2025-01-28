@@ -15,7 +15,7 @@ class ProductoSeeder extends Seeder
     {
         Producto::create([
         'descripcion'=>'zapallo',
-        'imagen'=>'sinruta',
+        'imagen'=>'productos/zapallo.jpg',
         'id_medida'=>1,
         'id_marca'=>1,
         'id_categoria'=>1,
@@ -26,7 +26,7 @@ class ProductoSeeder extends Seeder
 
       Producto::create([
     'descripcion'=>'leche',
-      'imagen'=>'sinruta',
+      'imagen'=>'productos/leche.jpg',
       'id_medida'=>1,
       'id_marca'=>1,
       'id_categoria'=>2,
@@ -37,7 +37,7 @@ class ProductoSeeder extends Seeder
 
     Producto::create([
     'descripcion'=>'Platanos',
-    'imagen'=>'sinruta',
+    'imagen'=>'productos/platanos.jpg',
     'id_medida'=>1,
     'id_marca'=>1,
     'id_categoria'=>4,
@@ -47,7 +47,7 @@ class ProductoSeeder extends Seeder
   ]);
   Producto::create([
     'descripcion'=>'Mandarinas',
-  'imagen'=>'sinruta',
+  'imagen'=>'productos/mandarinas.webp',
   'id_medida'=>1,
   'id_marca'=>1,
   'id_categoria'=>4,
@@ -58,7 +58,7 @@ class ProductoSeeder extends Seeder
 
 Producto::create([
   'descripcion'=>'Papa huevo de indio',
-'imagen'=>'sinruta',
+'imagen'=>'productos/papas.jpg',
 'id_medida'=>1,
 'id_marca'=>1,
 'id_categoria'=>1,
