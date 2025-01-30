@@ -158,12 +158,20 @@ class OrdenVentaController extends Controller
         return response()->json(["data" => null, "result" => false, "message" => "Años inválidos"], 400);
     }
 
+        // $ventas = DB::table('orden_venta')
+        //     ->selectRaw('MONTHNAME(fecha) as Mes, SUM(total) as Total')
+        //     ->whereBetween(DB::raw('YEAR(fecha)'), [$anioInicio, $anioFin])
+        //     ->groupBy('Mes')
+        //     ->orderBy(DB::raw('MONTHNAME(fecha)'))
+        //     ->get();
+
+
         $ventas = DB::table('orden_venta')
-            ->selectRaw('MONTHNAME(fecha) as Mes, SUM(total) as Total')
-            ->whereBetween(DB::raw('YEAR(fecha)'), [$anioInicio, $anioFin])
-            ->groupBy('mes')
-            ->orderBy(DB::raw('MONTH(fecha)'))
-            ->get();
+    ->selectRaw('MONTHNAME(fecha) as Mes, SUM(total) as Total')
+    ->whereBetween(DB::raw('YEAR(fecha)'), [$anioInicio, $anioFin])
+    ->groupBy('Mes', DB::raw('MONTH(fecha)')) // Agrega MONTH(fecha) al GROUP BY
+    ->orderBy(DB::raw('MONTH(fecha)'))
+    ->get();
 
             if($ventas->isEmpty()){
                 return response()->json(["data"=>null, "result"=>false, "message" => "No se encontraron ventas para el rango de años especificado" ],status: 404);
