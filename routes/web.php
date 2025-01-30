@@ -74,6 +74,9 @@ Route::middleware([
 
     Route::get('/exportSalesIndicator', [IndicatorController::class, 'exportSalesIndicator'])->name('indicator.sales.export');
     Route::get('/exportReabastecimientoIndicator', [IndicatorController::class, 'exportReabastecimientoIndicator'])->name('indicator.abastacimiento.export');
+    Route::get('/exportBusquedaIndicator', [IndicatorController::class, 'exportBusquedaIndicator'])->name('indicator.busqueda.export');
+
+
 
     Route::get('/aaSales', function () {
         return view('sistema.aa.ventas');
@@ -81,5 +84,7 @@ Route::middleware([
 
     Route::post('/aaSales', [AAController::class, 'aaSales'])->name('aa.sales');
     Route::resource("reabesticimiento",ReabesticimientoController::class);
-    Route::get("indicadorReabestecimiento",[IndicatorController::class,"reabastecimientoIndicator"])->name("indicator.reabastecimiento");
+    Route::get( "indicadorReabestecimiento",[IndicatorController::class,"reabastecimientoIndicator"])->name("indicator.reabastecimiento");
+    Route::get( "indicadorBusquedaProducto",[IndicatorController::class,"busquedaProducto"])->name("indicator.busqueda");
+
 });

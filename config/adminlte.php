@@ -356,6 +356,10 @@ return [
                     'text' => 'Reabastecimiento',
                     'route' => 'indicator.reabastecimiento',
                 ],
+                [
+                    'text' => 'Busqueda producto',
+                    'route' => 'indicator.busqueda',
+                ],
             ],
         ],
         [

@@ -163,38 +163,48 @@
             })
         });
 
-        document.addEventListener("DOMContentLoaded",()=>{
+        setTimeout((event)=>{
+            console.log("Cargado")
                // Capturar el evento 'input' en el campo de búsqueda
-        document.querySelector('input[type="search"][aria-controls="table1"]').addEventListener('input', () => {
+       let input = document.querySelector('input[type="search"][class="form-control form-control-sm"]');
+       input.addEventListener('input', () => {
             // Establecer la hora de inicio solo la primera vez que el usuario escriba
+        if(!horaInicio){
+            let now = new Date();
+            horaInicio = now.toISOString();
+        }
 
-                 horaInicio = new Date();
-               horaInicio = horaInicio.toISOString();
 
         });
 
         // Capturar el evento 'click' en los botones del modal
-        document.querySelectorAll('.btn-modal').forEach(button => {
+        document.querySelectorAll('button[class="btn btn-info"][data-toggle="modal"]').forEach(button => {
             button.addEventListener('click', function() {
                 if (horaInicio) {
                     const productoId = this.dataset.id; // Obtener el ID del producto
                     // Crear el cuerpo de la solicitud como JSON
-                    const data = {
-                        hora_inicio: horaInicio,
-                        producto_id: productoId, // Puedes enviar el ID del producto si es necesario
-                    };
+                    console.log(horaInicio)
                     // Enviar la hora de inicio a la API
                     fetch(`{{ route('busquedaProducto') }}`, {
                             method: 'POST',
-                            body:JSON.stringify(data),
+                            headers: {
+        'Content-Type': 'application/json', // Solo se especifica el tipo de contenido
+    },
+                            body:JSON.stringify({
+                                horaInicio,
+                            }),
                         })
                         .then(response => response.json())
                         .then(data => {
                             if (data.message === 'OK') {
                                 console.log('Hora de búsqueda registrada correctamente');
+                                console.log(data)
+
                             } else {
                                 console.error('Error al registrar la búsqueda:', data.message);
                             }
+                            horaInicio = null; // Reiniciar la variable solo después de la respuesta
+
                         })
                         .catch(error => console.error('Error en la solicitud:', error));
                 } else {
@@ -202,6 +212,6 @@
                 }
             });
         });
-        })
+        },3000)
     </script>
 @stop

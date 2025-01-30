@@ -12,6 +12,7 @@ use App\Models\Producto;
 use App\Models\UnidadMedida;
 use App\Models\Marca;
 use App\Models\Categoria;
+use Log;
 use Storage;
 
 use Illuminate\Support\Carbon;
@@ -135,40 +136,40 @@ class ProductoController extends Controller
             'id_categoria' => 'required|exists:categoria,id_categoria',
         ]);
 
-     try{
-        DB::beginTransaction();
-           // Buscar el producto por su ID
-           $producto = Producto::find($id);
+        try {
+            DB::beginTransaction();
+            // Buscar el producto por su ID
+            $producto = Producto::find($id);
 
-           // Actualizar los campos del producto con los nuevos valores del formulario
-           $producto->descripcion = $request->input('descripcion');
-           //
-           $file = $request->file("imagen");
-           $ruta = Storage::disk("public")->put("imagenes", $file);
-           $producto->imagen = $ruta;
-           //
-           $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
-           $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
-           $producto->precio_venta = $request->input('precio_venta');
-           $producto->precio_compra = $request->input('precio_compra');
-           $producto->cantidad = $request->input('cantidad');
-           $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
+            // Actualizar los campos del producto con los nuevos valores del formulario
+            $producto->descripcion = $request->input('descripcion');
+            //
+            $file = $request->file("imagen");
+            $ruta = Storage::disk("public")->put("imagenes", $file);
+            $producto->imagen = $ruta;
+            //
+            $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
+            $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
+            $producto->precio_venta = $request->input('precio_venta');
+            $producto->precio_compra = $request->input('precio_compra');
+            $producto->cantidad = $request->input('cantidad');
+            $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
 
-           $producto->save();
+            $producto->save();
 
-           DB::commit();
-           session()->flash('message', 'registro exitoso');
+            DB::commit();
+            session()->flash('message', 'registro exitoso');
 
-           // Redirigir a la vista categoria.create
-           return redirect()->route('producto.create');
+            // Redirigir a la vista categoria.create
+            return redirect()->route('producto.create');
 
-     }catch (\Exception $e) {
-        DB::rollBack();
-        session()->flash('message', 'error');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('message', 'error');
 
-        // Redirigir a la vista categoria.create
-        return redirect()->route('producto.create');
-     }
+            // Redirigir a la vista categoria.create
+            return redirect()->route('producto.create');
+        }
     }
 
     /**
@@ -181,26 +182,35 @@ class ProductoController extends Controller
         return back();
     }
 
-    public function busquedaProducto(Request $request){
-try{
-    DB::beginTransaction();
-    $hora_inicio=Carbon::parse(  $request->hora_inicio);
-    $hora_final= Carbon::now();
-    $diferencia_tiempo=$hora_inicio->diff($hora_final)->format('%H:%I:%S');
-    $diferencia_segundos= $hora_inicio->diffInSeconds($hora_final);
-    $test_venta= new Test_busqueda();
-    $test_venta->fecha= Carbon::now()->format('d/m/Y');
-    $test_venta->hora_inicio=$hora_inicio->format('H:i:s');
-    $test_venta->hora_final=$hora_final->format('H:i:s');
-    $test_venta->diferencia_tiempo=$diferencia_tiempo;
-    $test_venta->diferencia_segundo=$diferencia_segundos;
-    $test_venta->save();
-    DB::commit();
-    return response()->json(["message"=>"OK"],200);
-}catch(\Exception $e){
-DB::rollBack();
-    return response()->json(["message"=>$e->getMessage()],500);
-}
+    public function busquedaProducto(Request $request)
+    {
+        try {
+            Log::info("Datos recibidos: ", $request->all());
+
+            DB::beginTransaction();
+            $h = $request->horaInicio;
+            $hora_inicio = Carbon::parse(($request->horaInicio));
+            $hora_final = Carbon::now();
+
+            $diferencia_tiempo = $hora_inicio->diff($hora_final)->format('%H:%I:%S');
+            $diferencia_segundos = $hora_inicio->diffInSeconds($hora_final);
+
+            //
+            $test_venta = new Test_busqueda();
+            $test_venta->fecha = Carbon::now()->format('d/m/Y');
+            $test_venta->hora_inicio = $hora_inicio->format('H:i:s');
+            $test_venta->hora_final = $hora_final->format('H:i:s');
+            $test_venta->diferencia_tiempo = $diferencia_tiempo;
+            $test_venta->diferencia_segundo = $diferencia_segundos;
+            $test_venta->save();
+            //
+            DB::commit();
+            //
+            return response()->json(["message" => "OK", "datos" => $h], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(["message" => $e->getMessage()], 500);
+        }
     }
 
     public function pdf()
