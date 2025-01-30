@@ -45,7 +45,7 @@
         </div>
         <div class="card-body">
             @if(!empty($prediction))
-                <p>{{ $prediction }} pedidos</p>
+                <p>{{ round($prediction / 64) }} pedidos</p>
             @endif
         </div>
     </div>
