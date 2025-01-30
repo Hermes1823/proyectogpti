@@ -9,10 +9,36 @@
 @section('content')
     <p>Ingrese la informacion de productos</p>
 
+    @if (session('message') == 'registro exitoso')
+        <x-adminlte-alert class="bg-teal text-uppercase" icon="fa fa-lg fa-thumbs-up" title="Correcto" dismissable>
+            Registro Exitoso
+        </x-adminlte-alert>
+
+        <script>
+            // Redirigir a la vista categoria.index después de 2 segundos
+            setTimeout(function() {
+                window.location.href = "{{ route('producto.index') }}";
+            }, 2000); // 2000 milisegundos = 2 segundos
+        </script>
+    @endif
+    @if (session('message') == 'error')
+        <x-adminlte-alert class="bg-teal text-uppercase" icon="fas fa-times" title="Incorrecto" dismissable>
+            Registro Erroneo
+        </x-adminlte-alert>
+
+        <script>
+            // Redirigir a la vista categoria.index después de 2 segundos
+            setTimeout(function() {
+                window.location.href = "{{ route('producto.index') }}";
+            }, 2000); // 2000 milisegundos = 2 segundos
+        </script>
+    @endif
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('producto.update', $producto->id_producto) }}" method="POST">
+            {{$producto}}
+            <form action="{{ route('producto.update', $producto->id_producto) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -131,21 +157,6 @@
 @stop
 
 @section('js')
-    @if (session('message'))
-        <script>
-            $(document).ready(function() {
-                let mensaje = "{{ session('message') }}";
-                Swal.fire({
-                    'title': 'Resultado',
-                    'text': mensaje,
-                    'icon': 'success'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        //logica para que retorne a la vista categoria.index
-                        window.location.href = "{{ route('producto.index') }}";
-                    }
-                })
-            })
-        </script>
-    @endif
+    <script src="{{ asset('js/vs_img.js') }}"></script>
+
 @stop

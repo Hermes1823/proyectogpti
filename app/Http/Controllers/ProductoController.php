@@ -135,27 +135,40 @@ class ProductoController extends Controller
             'id_categoria' => 'required|exists:categoria,id_categoria',
         ]);
 
-        // Buscar el producto por su ID
-        $producto = Producto::find($id);
+     try{
+        DB::beginTransaction();
+           // Buscar el producto por su ID
+           $producto = Producto::find($id);
 
-        // Actualizar los campos del producto con los nuevos valores del formulario
-        $producto->descripcion = $request->input('descripcion');
-        //
-        $file = $request->file("imagen");
-        $ruta = Storage::disk("public")->put("imagenes", $file);
-        $producto->imagen = $ruta;
-        //
-        $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
-        $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
-        $producto->precio_venta = $request->input('precio_venta');
-        $producto->precio_compra = $request->input('precio_compra');
-        $producto->cantidad = $request->input('cantidad');
-        $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
+           // Actualizar los campos del producto con los nuevos valores del formulario
+           $producto->descripcion = $request->input('descripcion');
+           //
+           $file = $request->file("imagen");
+           $ruta = Storage::disk("public")->put("imagenes", $file);
+           $producto->imagen = $ruta;
+           //
+           $producto->id_medida = $request->input('id_medida');// este es un select 2 y agarra la variable desripcion de medida
+           $producto->id_marca = $request->input('id_marca');// este es un select 2 y agarra la variable desripcion de marca
+           $producto->precio_venta = $request->input('precio_venta');
+           $producto->precio_compra = $request->input('precio_compra');
+           $producto->cantidad = $request->input('cantidad');
+           $producto->id_categoria = $request->input('id_categoria');// este es un select 2 y agarra la variable desripcion de categoria
 
-        $producto->save();
+           $producto->save();
 
-        // Redireccionar a la vista de listado de productos o a donde sea necesario
-        return back()->with('message', 'Actualizado correctamente');
+           DB::commit();
+           session()->flash('message', 'registro exitoso');
+
+           // Redirigir a la vista categoria.create
+           return redirect()->route('producto.create');
+
+     }catch (\Exception $e) {
+        DB::rollBack();
+        session()->flash('message', 'error');
+
+        // Redirigir a la vista categoria.create
+        return redirect()->route('producto.create');
+     }
     }
 
     /**
