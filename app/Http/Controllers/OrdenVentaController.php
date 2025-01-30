@@ -56,6 +56,7 @@ class OrdenVentaController extends Controller
 
 
         try{
+            // return $request;
             DB::beginTransaction();
             $ordenventa = new OrdenVenta();
             $detalles= json_decode( $request->get('detalles'));
@@ -67,6 +68,7 @@ class OrdenVentaController extends Controller
 
             // Guardar los detalles
             $id=$ordenventa->id_orden_venta;
+            // return $detalles;
             $detalle= null;
             foreach($detalles as $linea){
                 // Guarda detalle
@@ -78,11 +80,15 @@ class OrdenVentaController extends Controller
                 $detalle->save();
                 //Disminuye existencia en almacen
 
-                $producto= Producto::find($linea->codigo_producto);
+                $producto= Producto::find(intval($linea->codigo_producto));
                 $producto->cantidad=$producto->cantidad-$linea->cantidad;
                 $producto->save();
                 //
-                $hora_final= Carbon::now();
+
+                //return $producto;
+            }
+
+            $hora_final= Carbon::now();
             $diferencia_tiempo=$hora_inicio->diff($hora_final)->format('%H:%I:%S');
             $diferencia_segundos= $hora_inicio->diffInSeconds($hora_final);
             $test_venta= new Test_Orden_Venta();
@@ -98,8 +104,6 @@ class OrdenVentaController extends Controller
 
                 // Redirigir a la vista categoria.create
                 return redirect()->route('ordenventa.create');
-                //return $producto;
-            }
         }catch(Exception $e){
             DB::rollback();
             session()->flash('message', "Ocurrio un error inesperado:  $e");

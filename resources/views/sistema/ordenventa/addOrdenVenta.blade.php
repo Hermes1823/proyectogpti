@@ -28,6 +28,7 @@
                 @csrf
                 {{-- proveedor --}}
                 <input type="hidden" name="detalles" id="detalles_venta">
+
                 <input type="hidden" id="hora_inicio" name="hora_inicio">
 
                 <span class="basic">Encabezado</span>
@@ -59,7 +60,7 @@
                         <select name="producto" id="listaProductos">
                             <option value="" disabled selected hidden>Producto</option>
                             @foreach ($productos as $p)
-                                <option value="{{ $p->id_producto }}" data-precio={{ $p->precio_compra }}>{{ $p->descripcion }}</option>
+                                <option value="{{ $p->id_producto }}" data-precio={{ $p->precio_venta }}>{{ $p->descripcion }}</option>
                             @endforeach
                         </select>
                     </div>
