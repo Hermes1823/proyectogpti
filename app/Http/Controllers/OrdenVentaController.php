@@ -153,6 +153,10 @@ class OrdenVentaController extends Controller
 
     public function showReporteVenta($anioInicio,$anioFin)
     {
+           // Validar que los años sean válidos
+    if (!is_numeric($anioInicio) || !is_numeric($anioFin)) {
+        return response()->json(["data" => null, "result" => false, "message" => "Años inválidos"], 400);
+    }
 
         $ventas = DB::table('orden_venta')
             ->selectRaw('MONTHNAME(fecha) as Mes, SUM(total) as Total')
@@ -162,7 +166,7 @@ class OrdenVentaController extends Controller
             ->get();
 
             if($ventas->isEmpty()){
-                return response()->json(["data"=>null, "result"=>false],status: 404);
+                return response()->json(["data"=>null, "result"=>false, "message" => "No se encontraron ventas para el rango de años especificado" ],status: 404);
 
             }
 
