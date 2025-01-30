@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GroupRestController;
+use App\Http\Controllers\OrdenVentaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ReabesticimientoController;
 use Illuminate\Http\Request;
@@ -27,4 +28,5 @@ Route::post("/busqueda-producto",[ProductoController::class,"busquedaProducto"])
 Route::get('/graficojson1', [GroupRestController::class, 'totalProductosPorCategoria']);
 Route::get('search_orden_proveedor/{id}', [ReabesticimientoController::class,'search_order_provee'])->name("reabastecimiento.proveedor_orden");
 Route::get('details_orden/{id}', [ReabesticimientoController::class,'detalles_orden'])->name("reabastecimiento.detalles_orden");
+Route::get("reporteVenta/{anioInico}/{anioFin}", [OrdenVentaController::class,"showReporteVenta"])->name("ordenVenta.reporteVenta");
 

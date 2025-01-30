@@ -9,18 +9,36 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+          <div class="row my-2">
+            <div class="col">
+                <label for="">Año Inicio</label>
+                <input type="number" id="anioInicio" class="form-control">
+
+            </div>
+            <div class="col">
+                <label for="">Año Fin</label>
+                <input type="number" id="anioFin" class="form-control">
+            </div>
+            <div class="col my-4">
+
+                <button type="button" id="btn_filtrado" class="btn btn-primary"> <i class="fas fa-filter"></i>Filtrar</button>
+            </div>
+          </div>
             <x-adminlte-card title="Ventas por Año" theme="primary" icon="fas fa-chart-bar" removable collapsible>
-                <canvas id="productos" style=" width: 100%;"></canvas>
+                <canvas id="ventasChart" style=" width: 100%;"></canvas>
             </x-adminlte-card>
         </div>
     </div>
 @stop
 
 @section('js')
+
+<script src="{{asset("js/reporte_venta.js")}}"></script>
+
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdnjs.com/libraries/Chart.js"></script> --}}
-    <script>
+    {{-- <script>
         resultados = @json($ventas);
         etiquetas = resultados.map((d) => d.año); //labels
         totales = resultados.map((c) => c.total);
@@ -62,5 +80,5 @@
             new Chart(grafico, caracteristicas);
         }
 
-    </script>
+    </script> --}}
 @stop
