@@ -30,7 +30,7 @@
                     <option value="12">Diciembre</option>
                 </select>
                 <input type="number" name="day" id="day" min="1" max="31" placeholder="Día" required>
-                <select name="day_of_week" id="day_of_week">
+                <select name="day_of_week" id="day_of_week" disabled>
                     <option value="" disabled selected hidden>Día de la semana</option>
                     <option value="0">Domingo</option>
                     <option value="1">Lunes</option>
@@ -39,8 +39,10 @@
                     <option value="4">Jueves</option>
                     <option value="5">Viernes</option>
                     <option value="6">Sábado</option>
-                </select> <br> <br>
-                <button class="primary" type="submit"><i class='fas fa-magic'></i> &nbsp Predecir</button>
+                </select>
+                <br><br>
+                <button class="primary" id="submit-btn" type="submit"><i class='fas fa-magic'></i> &nbsp Predecir</button>
+                <span id="warning-msg" style="color: #ba1a1a; display: none;">&nbsp  &nbsp Día no laborable</span>
             </form>
         </div>
         <div class="card-body">
@@ -65,6 +67,11 @@
         button.primary {
             background-color: #415f91;
             color: white;
+        }
+
+        button.primary:disabled {
+            background-color: #565f71;
+            color: #ffffff;
         }
 
         button.secondary {
@@ -116,5 +123,38 @@
 @stop
 
 @section('js')
+    <script>
+        const yearInput = document.getElementById('year')
+        const monthSelect = document.getElementById('month');
+        const dayInput = document.getElementById('day');
+        const dayOfWeekSelect = document.getElementById('day_of_week');
+        const submitBtn = document.getElementById('submit-btn');
+        const warningMsg = document.getElementById('warning-msg');
 
+        function updateDayOfWeek() {
+            const year = yearInput.value;
+            const month = monthSelect.value - 1; // Mes en Date empieza de 0
+            const day = dayInput.value;
+            
+            if (year && month >= 0 && day) {
+                const date = new Date(year, month, day);
+                const dayOfWeek = date.getDay();
+                
+                dayOfWeekSelect.value = dayOfWeek;
+                // dayOfWeekSelect.disabled = false;
+
+                if (dayOfWeek >= 1 && dayOfWeek <= 3) { // Lunes (1), Martes (2), Miércoles (3)
+                    submitBtn.disabled = true;
+                    warningMsg.style.display = 'inline';
+                } else {
+                    submitBtn.disabled = false;
+                    warningMsg.style.display = 'none';
+                }
+            }
+        }
+
+        yearInput.addEventListener('input', updateDayOfWeek);
+        monthSelect.addEventListener('change', updateDayOfWeek);
+        dayInput.addEventListener('input', updateDayOfWeek);
+    </script>
 @stop
