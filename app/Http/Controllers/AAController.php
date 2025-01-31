@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
+use Illuminate\Support\Facades\Log;
+
 class AAController extends Controller
 {
     public function aaSales(Request $request)
     {
+        Log::info($request);
         if ($request->isMethod('post')) {
 
             $validated = $request->validate([
@@ -29,7 +32,7 @@ class AAController extends Controller
 
             return view('sistema.aa.ventas', ['prediction' => $prediction]);
         }
-    
+
         return view('sistema.aa.ventas');
     }
     

@@ -141,7 +141,7 @@
                 const dayOfWeek = date.getDay();
                 
                 dayOfWeekSelect.value = dayOfWeek;
-                // dayOfWeekSelect.disabled = false;
+                dayOfWeekSelect.disabled = false;
 
                 if (dayOfWeek >= 1 && dayOfWeek <= 3) { // Lunes (1), Martes (2), Miércoles (3)
                     submitBtn.disabled = true;
