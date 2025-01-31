@@ -44,12 +44,14 @@ async function mostrarOrdenes(event) {
     if (data.success && data.data.length > 0) {
 
         lstOrden.innerHTML = "";
+        lstOrden.innerHTML="<option >Seleccione la Orden</option>";
         data.data.forEach((e) => {
-            lstOrden.innerHTML="<option >Seleccione la Orden</option>";
+
             elemento = document.createElement("option");
             elemento.setAttribute("value",e.id_orden_compra)
             elemento.innerHTML = `${e.id_orden_compra} - ${e.estado}`;
             lstOrden.appendChild(elemento);
+            elemento=null;
         });
         console.log("Ordenes listadas pendientes");
         habilitarBotones()
@@ -103,14 +105,14 @@ function habilitarBotones() {
 
 
 async function ApiOrdenesProveedor(id) {
-    const datos = await fetch(`http://127.0.0.1:8000/api/search_orden_proveedor/${id}`)
+    const datos = await fetch(`api/search_orden_proveedor/${id}`)
         .then((data) => data.json())
         .then((data) => data);
     return datos;
 }
 
 async function ApiMostrarDetalles(id) {
-    const datos = await fetch(`http://127.0.0.1:8000/api/details_orden/${id}`)
+    const datos = await fetch(`api/details_orden/${id}`)
         .then((data) => data.json())
         .then((data) => data);
     return datos;

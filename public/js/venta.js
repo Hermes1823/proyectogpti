@@ -80,9 +80,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 listaProductos.addEventListener("change", calcularPrecioImporte);
 inputCantidad.addEventListener("input", actualizarPrecioImporte);
+tabla.addEventListener("input", actualizarDetalle);
 //----------------------------------------------
 // btnAgregarOrden.addEventListener("onclick",rellenarTabla);
+function actualizarDetalle(event) {
+    fila=event.target.closest("tr");
+    const inputCantidad=fila.querySelector('input[name="cnt"]');
+    const inputPrecio=fila.querySelector('input[name="pu"]');
+    const inputImporte=fila.querySelector('input[name="imp"]');
+    id_producto=fila.dataset.id;
 
+    const cantidad = parseFloat(inputCantidad.value) || 0;
+    const precio = parseFloat(inputPrecio.value) || 0;
+    const importe = cantidad * precio;
+    inputImporte.value = importe.toFixed(2); // Mostrar con 2 decimales
+    respuesta = detalles.findIndex(
+        (d) => d.codigo_producto == id_producto
+    );
+    detalles[respuesta].cantidad=cantidad;
+    detalles[respuesta].importe=importe;
+    detalles[respuesta].precio=precio;
+    //
+    calcularTotal()
+
+
+}
 function rellenarTabla() {
     codigo = listaProductos.options[listaProductos.selectedIndex].value;
     nombre = listaProductos.options[listaProductos.selectedIndex].text;
@@ -103,10 +125,19 @@ function rellenarTabla() {
         columna_borrar.appendChild(icono_borrar);
         const columnas =
             `
+
+
+
         <td>${lineaVenta.nombre_producto}</td>
-        <td>${lineaVenta.cantidad}</td>
-        <td>${lineaVenta.precio}</td>
-        <td>${lineaVenta.importe}</td>
+        <td>
+                               <input type="number" class="form-control" name="cnt" value="${lineaVenta.cantidad}">
+        </td>
+        <td>
+        <input type="number" class="form-control" name="pu" step="0.01" value="${lineaVenta.precio}" disabled>
+        </td>
+        <td>
+          <input type="number" class="form-control" name="imp" step="0.01" value="${lineaVenta.importe}" disabled>
+        </td>
     `;
         fila.innerHTML = columnas;
         fila.appendChild(columna_borrar);
@@ -187,8 +218,8 @@ function borrarFila(event) {
     Swal.fire({
         title: "¿Estas seguro de borrar este detalle?",
         showDenyButton: true,
-        confirmButtonText: "Save",
-        denyButtonText: `Don't save`
+        confirmButtonText: "Borrar",
+        denyButtonText: `Cancelar`
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire("Producto borrado", "", "success");

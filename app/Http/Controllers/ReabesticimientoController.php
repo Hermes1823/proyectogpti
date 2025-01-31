@@ -71,7 +71,7 @@ class ReabesticimientoController extends Controller
 
    public function search_order_provee($id){
 
-    $order_provee = OrdenCompra::where("ruc","=",$id)
+    $order_provee = OrdenCompra::where("ruc",$id)
     ->where("estado","LIKE","PENDIENTE")
     ->get();
 
