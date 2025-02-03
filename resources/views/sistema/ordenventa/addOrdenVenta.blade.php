@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="col">
-                        <input type="date" name="fecha" id="fecha" placeholder="Fecha" required>
+                        <input type="date" name="fecha" id="fecha" placeholder="Fecha" required value="{{date('Y-m-d')}}">
                     </div>
                 </div>
 

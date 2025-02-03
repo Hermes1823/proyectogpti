@@ -48,7 +48,7 @@
                     </div>
                     <div class="col">
 
-                        <x-adminlte-input type="date" name="fecha" label="Fecha" placeholder="Selecciona la fecha"
+                        <x-adminlte-input type="date" name="fecha" value="{{date('Y-m-d')}}" label="Fecha" placeholder="Selecciona la fecha"
                             label-class="text-lightblue">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-info">

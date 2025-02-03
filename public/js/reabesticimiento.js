@@ -69,6 +69,7 @@ async function mostrarDetalles(event) {
     const id = lstOrden.options[lstOrden.selectedIndex].value;
     const data = await ApiMostrarDetalles(id);
     const detalles = await data.data.detalles;
+    tblCompra.innerHTML="";
     // console.log(detalles)
     if (data.success) {
         // console.log(data.data)
