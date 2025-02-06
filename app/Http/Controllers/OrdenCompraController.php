@@ -73,9 +73,9 @@ class OrdenCompraController extends Controller
                 $detalle->save();
                 //Aumenta existencia en almacen
 
-                $producto= Producto::find($linea->codigo_producto);
-                $producto->cantidad=$producto->cantidad+$linea->cantidad;
-                $producto->save();
+                // $producto= Producto::find($linea->codigo_producto);
+                // $producto->cantidad=$producto->cantidad+$linea->cantidad;
+                // $producto->save();
 
             }
 

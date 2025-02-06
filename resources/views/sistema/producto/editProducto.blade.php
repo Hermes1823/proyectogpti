@@ -36,7 +36,7 @@
 
     <div class="card">
         <div class="card-body">
-            {{$producto}}
+            {{-- {{$producto}} --}}
             <form action="{{ route('producto.update', $producto->id_producto) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
