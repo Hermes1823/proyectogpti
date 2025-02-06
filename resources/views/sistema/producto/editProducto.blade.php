@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col">
                         <x-adminlte-input type="text" name="descripcion" label="Nombre"
-                            placeholder="digite la descripcion" label-class="text-lightblue"
+                            placeholder="{{$producto->descripcion}}" label-class="text-lightblue"
                             value="{{ old('descripcion') }}">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-info">
@@ -93,7 +93,7 @@
                 <div class="row">
                     <div class="col">
                         <x-adminlte-input type="number" name="precio_venta" label="Precio de venta"
-                            placeholder="Ingresa el precio de venta" label-class="text-lightblue"
+                            placeholder="{{$producto->precio_venta}}" label-class="text-lightblue"
                             value="{{ old('precio_venta') }}" step="0.01" min="0">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-info">
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col">
                         <x-adminlte-input type="number" name="precio_compra" label="precio de compra"
-                            placeholder="Ingresa el precio de compra" label-class="text-lightblue"
+                            placeholder="{{$producto->precio_compra}}" label-class="text-lightblue"
                             value="{{ old('precio_compra') }}" step="0.01" min="0">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-info">
@@ -118,7 +118,7 @@
                 <div class="row">
                     <div class="col">
 
-                        <x-adminlte-input name="cantidad" label="cantidad" placeholder="cantidad" type="number" min=1
+                        <x-adminlte-input name="cantidad" label="cantidad" placeholder="{{$producto->cantidad}}" type="number" min=1
                             label-class="text-lightblue">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-gradient-info">
