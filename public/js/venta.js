@@ -60,6 +60,17 @@ const txtTotal = document.getElementById("txtTotal");
 const txtTotal_ = document.getElementById("txtTotal_");
 const inputDetalles = document.getElementById("detalles_venta");
 const form_venta = document.getElementById("formulario_venta");
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
 //
 btnAgregarOrden.setAttribute("disabled", true);
 // -----------Eventos----------------------------------
@@ -89,11 +100,30 @@ function actualizarDetalle(event) {
     const inputPrecio=fila.querySelector('input[name="pu"]');
     const inputImporte=fila.querySelector('input[name="imp"]');
     id_producto=fila.dataset.id;
-
     const cantidad = parseFloat(inputCantidad.value) || 0;
     const precio = parseFloat(inputPrecio.value) || 0;
     const importe = cantidad * precio;
     inputImporte.value = importe.toFixed(2); // Mostrar con 2 decimales
+    let producto = PRODUCTOS.find((d) => {
+        return d.id_producto ==id_producto;
+    })
+if(cantidad>producto.cantidad){
+Toast.fire({
+    icon:"error",
+    title:"Cantidad no permitida"
+});
+inputCantidad.value=producto.cantidad;
+
+respuesta = detalles.findIndex(
+    (d) => d.codigo_producto == id_producto
+);
+detalles[respuesta].cantidad=cantidad;
+detalles[respuesta].importe=importe;
+detalles[respuesta].precio=precio;
+//
+calcularTotal();
+}else{
+
     respuesta = detalles.findIndex(
         (d) => d.codigo_producto == id_producto
     );
@@ -101,7 +131,9 @@ function actualizarDetalle(event) {
     detalles[respuesta].importe=importe;
     detalles[respuesta].precio=precio;
     //
-    calcularTotal()
+    calcularTotal();
+
+}
 
 
 }
