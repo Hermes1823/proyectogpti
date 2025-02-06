@@ -64,7 +64,7 @@ class ProductoController extends Controller
             'cantidad' => 'required|integer',
             'id_categoria' => 'required|exists:categoria,id_categoria',
         ]);
-        return $request;
+        // return $request;
         try {
             DB::beginTransaction();
             $producto = new Producto();
@@ -129,7 +129,7 @@ class ProductoController extends Controller
         // Validar los datos del formulario de edición
         $validacion = $request->validate([
             'descripcion' => 'required|string|max:60',
-            'imagen' => 'nullable',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'id_medida' => 'required|exists:unidad_medida,id_medida',
             'id_marca' => 'required|exists:marca,id_marca',
             'precio_venta' => 'required|numeric',
