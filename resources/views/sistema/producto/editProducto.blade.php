@@ -44,8 +44,8 @@
                 <div class="row">
                     <div class="col">
                         <x-adminlte-input type="text" name="descripcion" label="Nombre"
-                            placeholder="{{$producto->descripcion}}" label-class="text-lightblue"
-                            value="{{ old('descripcion') }}">
+                            placeholder="Ingrese la descripcion del producto" value="{{$producto->descripcion}}" label-class="text-lightblue"
+                            >
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-info">
                                     <i class="fas fa-audio-description"></i>
@@ -93,8 +93,8 @@
                 <div class="row">
                     <div class="col">
                         <x-adminlte-input type="number" name="precio_venta" label="Precio de venta"
-                            placeholder="{{$producto->precio_venta}}" label-class="text-lightblue"
-                            value="{{ old('precio_venta') }}" step="0.01" min="0">
+                            placeholder="Ingrese el precio de venta"  label-class="text-lightblue"
+                            value="{{$producto->precio_venta}}" step="0.01" min="0">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-info">
                                     <i class="fas fa-dollar-sign"></i>
@@ -104,8 +104,8 @@
                     </div>
                     <div class="col">
                         <x-adminlte-input type="number" name="precio_compra" label="precio de compra"
-                            placeholder="{{$producto->precio_compra}}" label-class="text-lightblue"
-                            value="{{ old('precio_compra') }}" step="0.01" min="0">
+                            placeholder="Ingrese el precio de compra" label-class="text-lightblue"
+                            value="{{$producto->precio_compra}}" step="0.01" min="0">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-gradient-info">
                                     <i class="fas fa-dollar-sign"></i>
@@ -118,8 +118,8 @@
                 <div class="row">
                     <div class="col">
 
-                        <x-adminlte-input name="cantidad" label="cantidad" placeholder="{{$producto->cantidad}}" type="number" min=1
-                            label-class="text-lightblue">
+                        <x-adminlte-input name="cantidad" label="cantidad" placeholder="Ingrese la cantidad del producto" type="number" min=1
+                            label-class="text-lightblue" value="{{$producto->cantidad}}">
                             <x-slot name="appendSlot">
                                 <div class="input-group-text bg-gradient-info">
                                     <i class="fas fa-hashtag"></i>

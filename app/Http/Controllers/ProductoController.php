@@ -53,9 +53,10 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
+
         $validacion = $request->validate([
             'descripcion' => 'required|string|max:60',
-            'imagen' => 'nullable',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'id_medida' => 'required|exists:unidad_medida,id_medida',
             'id_marca' => 'required|exists:marca,id_marca',
             'precio_venta' => 'required|numeric',
@@ -63,6 +64,7 @@ class ProductoController extends Controller
             'cantidad' => 'required|integer',
             'id_categoria' => 'required|exists:categoria,id_categoria',
         ]);
+        return $request;
         try {
             DB::beginTransaction();
             $producto = new Producto();
