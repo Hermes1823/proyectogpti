@@ -102,8 +102,7 @@ function actualizarDetalle(event) {
     id_producto=fila.dataset.id;
     const cantidad = parseFloat(inputCantidad.value) || 0;
     const precio = parseFloat(inputPrecio.value) || 0;
-    const importe = cantidad * precio;
-    inputImporte.value = importe.toFixed(2); // Mostrar con 2 decimales
+
     let producto = PRODUCTOS.find((d) => {
         return d.id_producto ==id_producto;
     })
@@ -113,17 +112,19 @@ Toast.fire({
     title:"Cantidad no permitida"
 });
 inputCantidad.value=producto.cantidad;
-
+const importe = cantidad * precio;
+inputImporte.value = importe.toFixed(2); // Mostrar con 2 decimales
 respuesta = detalles.findIndex(
     (d) => d.codigo_producto == id_producto
 );
-detalles[respuesta].cantidad=cantidad;
+detalles[respuesta].cantidad=producto.cantidad;
 detalles[respuesta].importe=importe;
 detalles[respuesta].precio=precio;
 //
 calcularTotal();
 }else{
-
+    const importe = cantidad * precio;
+    inputImporte.value = importe.toFixed(2); // Mostrar con 2 decimales
     respuesta = detalles.findIndex(
         (d) => d.codigo_producto == id_producto
     );

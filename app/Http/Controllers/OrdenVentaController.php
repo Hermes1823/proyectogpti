@@ -33,7 +33,7 @@ class OrdenVentaController extends Controller
     public function create()
     {
         $clientes = Cliente::orderBy("nombre")->get();
-        $productos = Producto::orderBy("descripcion")->get();
+        $productos = Producto::orderBy("descripcion")->where("cantidad",">",0)->get();
         return view('sistema.ordenventa.addOrdenVenta', compact('clientes', 'productos'));
     }
 

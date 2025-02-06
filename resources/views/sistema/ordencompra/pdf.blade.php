@@ -74,7 +74,7 @@
                       <tr>
                         <td>{{ $d->cantidad }}</td>
                         <td>{{ $d->producto->unidadMedida?->descripcion ?? "Sin unidad de medida" }}</td>
-                        <td>{{$d->producto->descripcion  }}</td>
+                        <td>{{$d->producto?->descripcion?? "Sin descripcion"  }}</td>
                         <td>{{ $d->producto->marca?->descripcion ?? "Sin marca"  }}</td>
                         <td>{{ $d->producto->categoria?->descripcion ?? "Sin categoria" }}</td>
                         <td>{{ $d->precio }}</td>
