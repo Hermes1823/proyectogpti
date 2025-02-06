@@ -90,7 +90,7 @@
                     </div>
                     <div class="col col-md-2 col-sm-6">
                         <label for="">Cantidad</label>
-                        <input type="number" id="cantidad" class="form-control">
+                        <input type="number" min="0" id="cantidad" class="form-control">
                     </div>
                     <div class="col col-md-2 col-sm-6">
                         <label for="">Precio</label>

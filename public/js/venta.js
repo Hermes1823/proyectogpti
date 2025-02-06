@@ -163,7 +163,7 @@ function rellenarTabla() {
 
         <td>${lineaVenta.nombre_producto}</td>
         <td>
-                               <input type="number" class="form-control" name="cnt" value="${lineaVenta.cantidad}">
+                               <input type="number" min="0" class="form-control" name="cnt" value="${lineaVenta.cantidad}">
         </td>
         <td>
         <input type="number" class="form-control" name="pu" step="0.01" value="${lineaVenta.precio}" disabled>

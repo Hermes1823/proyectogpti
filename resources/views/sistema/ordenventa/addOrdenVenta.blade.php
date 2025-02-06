@@ -54,7 +54,7 @@
 
                 <div class="row" style="margin-top: 16px">
                     <div class="col-2">
-                        <input type="number" name="cantidad" id="cantidad" placeholder="Cantidad" required>
+                        <input type="number" name="cantidad" id="cantidad" min="0" placeholder="Cantidad" required>
                     </div>
                     <div class="col-6">
                         <select name="producto" id="listaProductos">
