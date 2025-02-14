@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use App\Models\Prediction;
+use PDF;
 
 use Illuminate\Support\Facades\Log;
 
@@ -12,9 +14,8 @@ class AAController extends Controller
 {
     public function aaSales(Request $request)
     {
-        Log::info($request);
-        if ($request->isMethod('post')) {
-
+        if ($request->isMethod('post')) 
+        {
             $validated = $request->validate([
                 'year' => 'required|integer',
                 'month' => 'required|integer|min:1|max:12',
@@ -26,14 +27,35 @@ class AAController extends Controller
     
             $prediction = shell_exec($command);
 
-            if ($prediction === null) {
+            if ($prediction === null) 
+            {
                 return response()->json(['error' => 'Ocurrió un error al ejecutar el script de predicción.'], 500);
             }
 
-            return view('sistema.aa.ventas', ['prediction' => $prediction]);
+            $savedPrediction = Prediction::create([
+                'year' => $validated['year'],
+                'month' => $validated['month'],
+                'day' => $validated['day'],
+                'day_of_week' => $validated['day_of_week'],
+                'prediction' => trim($prediction / 64)
+            ]);
+
+            $predictions = Prediction::all();
+
+            return view('sistema.aa.ventas', ['prediction' => $prediction, 'predictions' => $predictions]);
         }
 
-        return view('sistema.aa.ventas');
+        $predictions = Prediction::all();
+
+        return view('sistema.aa.ventas', ['predictions' => $predictions]);
+    }
+
+    public function generateReport()
+    {
+        $predictions = Prediction::all();
+        $pdf = PDF::loadView('sistema.aa.reporte', ['predictions' => $predictions]);
+
+        return $pdf->download('reporte_predicciones.pdf');
     }
     
 }

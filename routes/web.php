@@ -83,6 +83,7 @@ Route::middleware([
     });
 
     Route::post('/aaSales', [AAController::class, 'aaSales'])->name('aa.sales');
+    Route::get('/aaSalesReport', [AAController::class, 'generateReport'])->name('aa.salesReport');
     Route::resource("reabesticimiento",ReabesticimientoController::class);
     Route::get( "indicadorReabestecimiento",[IndicatorController::class,"reabastecimientoIndicator"])->name("indicator.reabastecimiento");
     Route::get( "indicadorBusquedaProducto",[IndicatorController::class,"busquedaProducto"])->name("indicator.busqueda");

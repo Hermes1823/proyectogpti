@@ -51,6 +51,15 @@
             @endif
         </div>
     </div>
+
+    <p>Gráfico</p>
+
+    <div class="card">
+        <div class="card-body">
+            <canvas id="salesChart" width="400" height="200"></canvas>
+            <button onclick="window.location.href='{{ route('aa.salesReport') }}'" class="primary">Descargar Reporte PDF</button>
+        </div>
+    </div>
 @stop
 
 @section('css')
@@ -125,36 +134,81 @@
 @section('js')
     <script>
         const yearInput = document.getElementById('year')
-        const monthSelect = document.getElementById('month');
-        const dayInput = document.getElementById('day');
-        const dayOfWeekSelect = document.getElementById('day_of_week');
-        const submitBtn = document.getElementById('submit-btn');
-        const warningMsg = document.getElementById('warning-msg');
+        const monthSelect = document.getElementById('month')
+        const dayInput = document.getElementById('day')
+        const dayOfWeekSelect = document.getElementById('day_of_week')
+        const submitBtn = document.getElementById('submit-btn')
+        const warningMsg = document.getElementById('warning-msg')
 
         function updateDayOfWeek() {
-            const year = yearInput.value;
-            const month = monthSelect.value - 1; // Mes en Date empieza de 0
-            const day = dayInput.value;
+            const year = yearInput.value
+            const month = monthSelect.value - 1 // Mes en Date empieza de 0
+            const day = dayInput.value
             
             if (year && month >= 0 && day) {
-                const date = new Date(year, month, day);
-                const dayOfWeek = date.getDay();
+                const date = new Date(year, month, day)
+                const dayOfWeek = date.getDay()
                 
-                dayOfWeekSelect.value = dayOfWeek;
-                dayOfWeekSelect.disabled = false;
+                dayOfWeekSelect.value = dayOfWeek
+                dayOfWeekSelect.disabled = false
 
                 if (dayOfWeek >= 1 && dayOfWeek <= 3) { // Lunes (1), Martes (2), Miércoles (3)
-                    submitBtn.disabled = true;
-                    warningMsg.style.display = 'inline';
+                    submitBtn.disabled = true
+                    warningMsg.style.display = 'inline'
                 } else {
-                    submitBtn.disabled = false;
-                    warningMsg.style.display = 'none';
+                    submitBtn.disabled = false
+                    warningMsg.style.display = 'none'
                 }
             }
         }
 
-        yearInput.addEventListener('input', updateDayOfWeek);
-        monthSelect.addEventListener('change', updateDayOfWeek);
-        dayInput.addEventListener('input', updateDayOfWeek);
+        yearInput.addEventListener('input', updateDayOfWeek)
+        monthSelect.addEventListener('change', updateDayOfWeek)
+        dayInput.addEventListener('input', updateDayOfWeek)
+    </script>
+
+    <script>
+        const predictions = @json($predictions ?? [])
+
+        if (predictions.length === 0) {
+            console.warn("No hay datos disponibles para mostrar en el gráfico.");
+            document.getElementById('salesChart').style.display = 'none';
+        } else {
+            const labels = predictions.map(prediction => `${prediction.year}-${prediction.month}-${prediction.day}`);
+            const data = predictions.map(prediction => prediction.prediction);
+
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            const salesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Predicciones de Ventas',
+                        data: data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Fecha'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Predicción'
+                            }
+                        }
+                    }
+                }
+            });
+        }
     </script>
 @stop
